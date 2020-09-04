@@ -1,0 +1,19 @@
+/*
+css customizations to tweak the default picnic styles
+*/
+
+.widget {
+  max-width: 240px;
+}
+
+.card .header {
+  border-bottom: solid 1px #CCC;
+}
+
+.minor {
+  background-color: orange;
+}
+
+.major {
+  background-color: red;
+}

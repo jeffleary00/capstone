@@ -1,2 +1,8 @@
-AUTH0_DOMAIN=dev-us1d520w.us.auth0.com
-AUTH0_API_AUDIENCE=Monitor-API
+export AUTH0_DOMAIN="dev-us1d520w.us.auth0.com"
+export AUTH0_API_AUDIENCE="Monitor-API"
+export PG_ADDR="localhost:5432"
+export PG_USER="test"
+export PG_PASSWD="testpassword"
+export PG_DB="capstone"
+export DATABASE_TYPE="postgresql+psycopg2"
+export DATABASE_URL="${DATABASE_TYPE}://${PG_USER}:${PG_PASSWD}@${PG_ADDR}/${PG_DB}"

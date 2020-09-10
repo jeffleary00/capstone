@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import (Column, Integer, String, Text, DateTime, Boolean,
     ForeignKey, func)
 from sqlalchemy.orm import relationship
-from cs_mon.utils import get_server_health
+from utils import get_server_health
 
 database_url = os.getenv('DATABASE_URL', 'sqlite:///')
 db = SQLAlchemy()

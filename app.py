@@ -1,9 +1,13 @@
+"""
+Part of the Capstone-Monitor project for Udacity FSND final project
+"""
+
 import os
 import json
 from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
-from cs_mon.models import setup_db, Server, Cluster
-from cs_mon.auth import AuthError, requires_auth
+from models import setup_db, Server, Cluster
+from auth import AuthError, requires_auth
 
 app = Flask(__name__)
 CORS(app)
@@ -46,7 +50,7 @@ def clusters_post():
 
     try:
         data = request.json
-        keys = ['name','notes']
+        keys = ['name', 'notes']
         cluster = Cluster()
         for key in keys:
             if key not in data:
@@ -100,7 +104,7 @@ def clusters_edit(id):
 
     try:
         data = request.json
-        keys = ['name','notes']
+        keys = ['name', 'notes']
         for key in keys:
             if key not in data:
                 continue
@@ -171,7 +175,7 @@ def servers_post():
 
     try:
         data = request.json
-        keys = ['name','notes','is_active','cluster_id']
+        keys = ['name', 'notes', 'is_active', 'cluster_id']
         server = Server()
         for key in keys:
             if key not in data:
@@ -225,7 +229,7 @@ def servers_edit(id):
 
     try:
         data = request.json
-        keys = ['name','notes','is_active','cluster_id']
+        keys = ['name', 'notes', 'is_active', 'cluster_id']
         for key in keys:
             if key not in data:
                 continue
@@ -263,18 +267,18 @@ def servers_delete(id):
 @app.errorhandler(422)
 def e_unprocessable(error):
     return jsonify({
-                    "success": False,
-                    "error": 422,
-                    "message": "unprocessable"
-                    }), 422
+        "success": False,
+        "error": 422,
+        "message": "unprocessable"
+    }), 422
 
 @app.errorhandler(404)
 def e_notfound(error):
     return jsonify({
-                    "success": False,
-                    "error": 404,
-                    "message": "not found"
-                    }), 404
+        "success": False,
+        "error": 404,
+        "message": "not found"
+    }), 404
 
 @app.errorhandler(AuthError)
 def handle_auth_err(err):

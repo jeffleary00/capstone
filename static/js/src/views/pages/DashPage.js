@@ -1,9 +1,16 @@
 const m = require("mithril");
 var Cluster = require("../../models/Cluster");
 var ClusterCard = require("../components/ClusterCard");
+var AuthService = require("../../services/AuthService");
 
 module.exports = {
-  oninit: Cluster.loadList,
+  oninit: function() {
+    auth = new AuthService();
+    if (! auth.isAuthenticated()) {
+      m.route.set("/login");
+    }
+    Cluster.loadList;
+  },
   view: function() {
     var children = [];
     if (Object.keys(Cluster.list).length < 1) {

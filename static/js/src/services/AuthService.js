@@ -3,12 +3,12 @@ const JWTS_ACTIVE_INDEX_KEY = 'CAPSTONE_MONITOR_ACTIVE_INDEX_KEY';
 
 class AuthService {
   constructor() {
-    this.token = null;
-    this.payload = null;
+    this._token = null;
+    this._payload = null;
   }
 
   isAuthenticated() {
-    if (this.token) {
+    if (this._token) {
       return true;
     } else {
       return false;
@@ -16,31 +16,31 @@ class AuthService {
   }
 
   hasPermission(p) {
-    return this.payload && this.payload.permissions && this.payload.permissions.length && this.payload.permissions.indexOf(p) >= 0;
+    return this._payload && this._payload.permissions && this._payload.permissions.length && this._payload.permissions.indexOf(p) >= 0;
   }
 
   loadJwts() {
-    this.token = localStorage.getItem(JWTS_LOCAL_KEY) || null;
-    if (this.token) {
-      this.decodeJWT(this.token);
+    this._token = localStorage.getItem(JWTS_LOCAL_KEY) || null;
+    if (this._token) {
+      this.decodeJWT(this._token);
     }
   }
 
   setJwt() {
-    localStorage.setItem(JWTS_LOCAL_KEY, this.token);
-    if (this.token) {
-      this.decodeJWT(this.token);
+    localStorage.setItem(JWTS_LOCAL_KEY, this._token);
+    if (this._token) {
+      this.decodeJWT(this._token);
     }
   }
 
   activeJWT() {
-    return this.token;
+    return this._token;
   }
 
   checkTokenFragment() {
     const fragment = window.location.hash.substr(1).split('&')[0].split('=');
     if ( fragment[0] === 'access_token' ) {
-      this.token = fragment[1];
+      this._token = fragment[1];
       this.setJwt();
     }
   }
@@ -53,13 +53,13 @@ class AuthService {
     var base64 = decodeURIComponent(atob(base64Url).split('').map((c)=>{
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    this.payload = JSON.parse(base64);
-    return this.payload;
+    this._payload = JSON.parse(base64);
+    return this._payload;
   }
 
   logout() {
-    this.token = '';
-    this.payload = null;
+    this._token = '';
+    this._payload = null;
     this.setJwt();
   }
 }

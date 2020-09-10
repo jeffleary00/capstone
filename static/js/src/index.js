@@ -9,8 +9,8 @@ var Login = require("./views/pages/LoginPage");
 var ClusterForm = require("./views/forms/ClusterForm");
 
 m.mount(header, Title);
-m.route(root, "/", {
-  "/": Dash,
+m.route(root, "/dash", {
+  "/dash": Dash,
   "/login": Login,
   "/clusters/create": ClusterForm,
   "/clusters/:id": ClusterForm,

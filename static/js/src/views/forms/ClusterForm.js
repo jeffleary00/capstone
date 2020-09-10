@@ -49,7 +49,7 @@ const getButtons = function() {
     m("button.button[type=button]", {
       class: "small pseudo",
       onclick: function() {
-        m.route.set("/");
+        m.route.set("/dashboard");
       }}, "Cancel")
   ]
   if (Cluster.current.id !== undefined) {

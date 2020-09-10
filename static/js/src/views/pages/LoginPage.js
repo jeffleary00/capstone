@@ -6,27 +6,31 @@ const environment = {
     url: 'dev-us1d520w.us.auth0.com',
     audience: 'Monitor-API',
     clientId: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
-    callbackURL: 'https://cs-monitor.herokuapp.com/login',
+    callbackURL: 'https://cs-monitor.herokuapp.com#!/login',
   }
 };
+
 const loginLink = function(callbackPath = '') {
+  console.log(environment);
   let link = 'https://';
-  link += environment.url;
+  link += environment.auth0.url;
   link += '/authorize?';
-  link += 'audience=' + environment.audience + '&';
+  link += 'audience=' + environment.auth0.audience + '&';
   link += 'response_type=token&';
-  link += 'client_id=' + environment.clientId + '&';
-  link += 'redirect_uri=' + environment.callbackURL + callbackPath;
+  link += 'client_id=' + environment.auth0.clientId + '&';
+  link += 'redirect_uri=' + environment.auth0.callbackURL + callbackPath;
   return link;
 }
 
 module.exports = {
   view: function() {
-    auth = new Auth();
+    auth = new AuthService();
     auth.checkTokenFragment();
     if (auth.isAuthenticated()) {
       m.route.set("/");
-    } else
-      m.route.set(loginLink());
+    } else {
+      console.log("redirect link: " + loginLink());
+      Response.redirect(loginLink());
     }
+  }
 }

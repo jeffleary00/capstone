@@ -5,7 +5,7 @@ var Server = {
   loadList: function() {
       return m.request({
           method: "GET",
-          url: "http://127.0.0.1:5000/api/v1.0/servers",
+          url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
           withCredentials: true,
       })
       .then(function(result) {
@@ -16,7 +16,7 @@ var Server = {
   load: function(id) {
     return m.request({
           method: "GET",
-          url: "http://127.0.0.1:5000/api/v1.0/servers/" + id,
+          url: "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + id,
           withCredentials: true
       }).then(function(result) {
         Server.current = result.servers
@@ -26,7 +26,7 @@ var Server = {
   save: function() {
     obj = {
         method: "POST",
-        url: "http://127.0.0.1:5000/api/v1.0/servers",
+        url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
         data: Server.current,
         withCredentials: true,
         extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}}
@@ -34,7 +34,7 @@ var Server = {
 
     if (Server.current.id) {
       obj.method = "PUT"
-      obj.url = "http://127.0.0.1:5000/api/v1.0/servers/" + Server.current.id
+      obj.url = "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + Server.current.id
     }
 
     return m.request(obj).then(function(result) {

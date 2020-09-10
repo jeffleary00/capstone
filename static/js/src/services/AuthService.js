@@ -2,12 +2,10 @@ const JWTS_LOCAL_KEY = 'CAPSTONE_MONITOR_LOCAL_KEY';
 const JWTS_ACTIVE_INDEX_KEY = 'CAPSTONE_MONITOR_ACTIVE_INDEX_KEY';
 
 class AuthService {
-  // class attributes
-  token = null;
-  payload = null;
-
-  // class methods
-  constructor() { }
+  constructor() {
+    this.token = null;
+    this.payload = null;
+  }
 
   isAuthenticated() {
     if (this.token) {

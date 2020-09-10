@@ -7,7 +7,7 @@ var Cluster = {
   loadList: function() {
       return m.request({
           method: "GET",
-          url: "http://127.0.0.1:5000/api/v1.0/clusters",
+          url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
           // withCredentials: true,
       })
       .then(function(result) {
@@ -19,7 +19,7 @@ var Cluster = {
   load: function(id) {
     return m.request({
           method: "GET",
-          url: "http://127.0.0.1:5000/api/v1.0/clusters/" + id,
+          url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
           // withCredentials: true
       }).then(function(result) {
         Cluster.current = result.clusters
@@ -29,7 +29,7 @@ var Cluster = {
   save: function() {
     obj = {
         method: "POST",
-        url: "http://127.0.0.1:5000/api/v1.0/clusters",
+        url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
         body: Cluster.current,
         // withCredentials: true,
         extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}}
@@ -37,7 +37,7 @@ var Cluster = {
 
     if (Cluster.current.id) {
       obj.method = "PUT"
-      obj.url = "http://127.0.0.1:5000/api/v1.0/clusters/" + Cluster.current.id
+      obj.url = "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id
     }
 
     return m.request(obj).then(function(result) {

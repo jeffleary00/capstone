@@ -22,8 +22,9 @@ const loginLink = function(callbackPath = '') {
 
 module.exports = {
   view: function() {
-    Auth.checkTokenFragment();
-    if (Auth.isAuthenticated()) {
+    auth = new Auth();
+    auth.checkTokenFragment();
+    if (auth.isAuthenticated()) {
       m.route.set("/");
     } else
       m.route.set(loginLink());

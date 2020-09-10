@@ -15,7 +15,7 @@ setup_db(app)
 
 # CLUSTER ROUTES
 @app.route("/api/v1.0/clusters", methods=['GET'])
-#@requires_auth('get:clusters')
+@requires_auth('get:clusters')
 def clusters_get():
     """
     GET list of all available clusters.
@@ -35,7 +35,7 @@ def clusters_get():
         'clusters': [c.as_dict() for c in clusters]}), 200
 
 @app.route("/api/v1.0/clusters", methods=['POST'])
-#@requires_auth('post:clusters')
+@requires_auth('post:clusters')
 def clusters_post():
     """
     CREATE new cluster from POST data.
@@ -65,7 +65,7 @@ def clusters_post():
         abort(422, str(x))
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['GET'])
-#@requires_auth('get:clusters')
+@requires_auth('get:clusters')
 def clusters_get_id(id):
     """
     GET clusters.
@@ -85,7 +85,7 @@ def clusters_get_id(id):
         'clusters': [cluster.as_dict()]}), 200
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['PATCH'])
-#@requires_auth('patch:clusters')
+@requires_auth('patch:clusters')
 def clusters_edit(id):
     """
     EDIT cluster with id.
@@ -118,7 +118,7 @@ def clusters_edit(id):
         abort(422, str(x))
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['DELETE'])
-#@requires_auth('delete:clusters')
+@requires_auth('delete:clusters')
 def clusters_delete(id):
     """
     DELETE cluster with id
@@ -140,7 +140,7 @@ def clusters_delete(id):
 
 # SERVER ROUTES
 @app.route("/api/v1.0/servers", methods=['GET'])
-#@requires_auth('get:servers')
+@requires_auth('get:servers')
 def servers_get():
     """
     GET list of all available servers.
@@ -160,7 +160,7 @@ def servers_get():
         'servers': [s.as_dict() for s in servers]}), 200
 
 @app.route("/api/v1.0/servers", methods=['POST'])
-#@requires_auth('post:servers')
+@requires_auth('post:servers')
 def servers_post():
     """
     CREATE new server from POST data.
@@ -190,7 +190,7 @@ def servers_post():
         abort(422, str(x))
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['GET'])
-#@requires_auth('get:servers')
+@requires_auth('get:servers')
 def servers_get_id(id):
     """
     GET servers.
@@ -210,7 +210,7 @@ def servers_get_id(id):
         'servers': [server.as_dict()]}), 200
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['PATCH'])
-#@requires_auth('patch:servers')
+@requires_auth('patch:servers')
 def servers_edit(id):
     """
     EDIT server with id.
@@ -243,7 +243,7 @@ def servers_edit(id):
         abort(422, str(x))
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['DELETE'])
-#@requires_auth('delete:servers')
+@requires_auth('delete:servers')
 def servers_delete(id):
     """
     DELETE server with id

@@ -3,7 +3,7 @@ import json
 from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 from cs_mon.models import setup_db, Server, Cluster
-from cs_mon.auth import AuthError
+from cs_mon.auth import AuthError, requires_auth
 
 app = Flask(__name__)
 CORS(app)

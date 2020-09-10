@@ -7,8 +7,8 @@ from urllib.request import urlopen
 import ssl
 
 AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
+API_AUDIENCE = os.getenv('AUTH0_API_AUDIENCE')
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'csmontool'
 
 ## AuthError Exception
 class AuthError(Exception):

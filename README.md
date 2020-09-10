@@ -6,10 +6,10 @@ For Udacity FSND Nanodegree Capstone final project.
 
 ## Details
 Servers are assigned to Clusters, aka Datacenters.
-Health is shown as:
- - Green = ok, healthy
- - Yellow = minor problems
- - Red = major problems
+Healths reported are as follows:
+ - OK - healthy, green
+ - MINOR - minor problems, orange
+ - MAJOR - major problems, red
 
 ## Requirements
  - Python 3.6+
@@ -17,9 +17,8 @@ Health is shown as:
  - Mithril JS
 
 ## Permissions
-- Role TECHNICIAN can view servers and datacenters.
-- Role ENGINEER can perform TECHNICIAN, plus edit hardware + datacenters.
-- Role MANAGER can perform ENGINEER, plus add and delete hardware + datacenters.
+- Role ENGINEER can perform view cluster and server details.
+- Role MANAGER can perform ENGINEER, plus add, edit, and delete clusters and servers.
 
 ## Technical
 - The REST API is a Flask application.

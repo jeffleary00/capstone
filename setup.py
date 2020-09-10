@@ -20,5 +20,6 @@ setuptools.setup(
         'flask-migrate',
         'flask-cors',
         'python-jose',
+        'psycopg2-binary',
     ],
 )

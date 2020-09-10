@@ -1,0 +1,1055 @@
+{
+	"info": {
+		"_postman_id": "b0212682-815c-4b6c-8b2e-31b0e9b94378",
+		"name": "cs-mon-api",
+		"description": "tests for udacity capstone final project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "manager-role",
+			"item": [
+				{
+					"name": "clusters",
+					"item": [
+						{
+							"name": "post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5ef2133b-763a-4612-b968-5c5be6a0b789",
+										"exec": [
+											"pm.test(\"cluster post test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"    var j = pm.response.json();",
+											"    pm.expect(j.clusters[0].name).to.eql(\"test cluster\");",
+											"    pm.environment.set(\"test_cluster_id\", j.clusters[0].id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"test cluster\", \"notes\": \"this is a test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5cdf3e72-a77b-4330-b0bd-12a37de4db97",
+										"exec": [
+											"pm.test(\"clusters get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e742f82-1dd1-46b5-874e-383ab09d2066",
+										"exec": [
+											"pm.test(\"clusters get id test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b628bfcf-2a50-438b-bbf4-a509a65bf4f5",
+										"exec": [
+											"pm.test(\"cluster patch test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"new cluster name\", \"notes\": \"name and notest were changed\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "58b18e9f-11df-4938-88c3-b5d1fcb50df6",
+										"exec": [
+											"pm.test(\"clusters delete test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3924eeff-ace9-4630-8bc3-42c3538bcd34",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"test cluster\", \"notes\": \"this is a test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ec84fbac-8526-4ce3-b76d-67b126981037",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f245d5e-fc9a-4cda-8318-27efaa54e01e",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "servers",
+					"item": [
+						{
+							"name": "post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f88df1da-2cc8-44d8-87e9-f5cc2624292b",
+										"exec": [
+											"pm.test(\"server post test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"    var j = pm.response.json();",
+											"    pm.expect(j.servers[0].name).to.eql(\"www-1\");",
+											"    pm.environment.set(\"test_server_id\", j.servers[0].id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"www-1\", \"notes\": \"linux web server\", \"cluster_id\": {{test_cluster_id}}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "ea7ea7dd-6fe9-43ea-87c9-d07464aa411d",
+										"exec": [
+											"pm.test(\"server get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dd1da342-f054-4216-9356-c7291bc5aefe",
+										"exec": [
+											"pm.test(\"server get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "340409bd-525f-4c80-893b-53ec13343702",
+										"exec": [
+											"pm.test(\"server patch test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"notes\": \"updated notes for this server\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "post again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7509f940-3d59-4c6f-86d1-4d5bebac50aa",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"www-1\", \"notes\": \"linux web server\", \"cluster_id\": {{test_cluster_id}}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "425105de-0125-4545-899c-6c85d77a6c84",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "08768ea1-daca-4479-a910-3a33413ee02d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "engineer-role",
+			"item": [
+				{
+					"name": "clusters",
+					"item": [
+						{
+							"name": "post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "b175ef16-56ca-434d-afd5-21be43ae4c2c",
+										"exec": [
+											"pm.test(\"cluster post test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"test cluster\", \"notes\": \"this is a test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1a25bc57-46f9-4f71-977d-930ec757f9e1",
+										"exec": [
+											"pm.test(\"clusters get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd8dfbbc-7a54-47c6-81a0-58875f15923a",
+										"exec": [
+											"pm.test(\"clusters get id test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "221a9a14-9f29-4cf3-b273-1e3905302013",
+										"exec": [
+											"pm.test(\"cluster patch test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"new cluster name\", \"notes\": \"name and notest were changed\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e8913763-8c94-4344-9526-72f61642ab05",
+										"exec": [
+											"pm.test(\"clusters delete test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"clusters",
+										"{{test_cluster_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "72b3a646-a8ba-4059-8da0-13fb8d8882bd",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "61656b98-d9be-421e-b5ae-6fe4c0a44f29",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "servers",
+					"item": [
+						{
+							"name": "post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4f85099e-81f1-45c2-941b-b152487e3d7a",
+										"exec": [
+											"pm.test(\"server post test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"    var j = pm.response.json();",
+											"    pm.expect(j.servers[0].name).to.eql(\"www-1\");",
+											"    pm.environment.set(\"test_server_id\", j.servers[0].id);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"name\": \"www-1\", \"notes\": \"linux web server\", \"cluster_id\": {{test_cluster_id}}}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f0250016-4a00-4cde-acc9-d1245f737ef4",
+										"exec": [
+											"pm.test(\"server get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5a2765e8-25bc-4a02-a7ac-6b8eb0667d85",
+										"exec": [
+											"pm.test(\"server get test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f08c00c2-0aa2-4d6b-a2c1-7fd8ebe1baa3",
+										"exec": [
+											"pm.test(\"server patch test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"notes\": \"updated notes for this server\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"api",
+										"v1.0",
+										"servers",
+										"{{test_server_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cbcaabf8-06af-4624-9c7d-82633ae1f5f0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "37d331a9-513e-4bda-b763-7b12d4023707",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "manager-cleanup",
+			"item": [
+				{
+					"name": "delete test cluster",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "695ba1c6-5420-40b7-a507-946d01571ff7",
+								"exec": [
+									"pm.test(\"clusters delete test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/api/v1.0/clusters/{{test_cluster_id}}",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"clusters",
+								"{{test_cluster_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete test server",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "62350ccb-95de-400b-bdf5-30cf01d7d1f4",
+								"exec": [
+									"pm.test(\"servers delete test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/api/v1.0/servers/{{test_server_id}}",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"api",
+								"v1.0",
+								"servers",
+								"{{test_server_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7e554c10-2c8f-4f75-90d6-8d78ee681b9e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "037c600b-b3e0-4266-a1e5-19abfbabdb39",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

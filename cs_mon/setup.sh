@@ -1,0 +1,2 @@
+AUTH0_DOMAIN=dev-us1d520w.us.auth0.com
+AUTH0_API_AUDIENCE=Monitor-API

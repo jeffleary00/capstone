@@ -5,13 +5,13 @@ const environment = {
   auth0: {
     url: 'dev-us1d520w.us.auth0.com',
     audience: 'https://cs-monitor.herokuapp.com',
-    clientId: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
+    clientId: 'THLnI4SjTwYduH5sGfzHjAR37agGeL10', // test app
+    //clientId: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa', // production app
     callbackURL: 'https://cs-monitor.herokuapp.com#!/login',
   }
 };
 
 const loginLink = function(callbackPath = '') {
-  console.log(environment);
   let link = 'https://';
   link += environment.auth0.url;
   link += '/authorize?';

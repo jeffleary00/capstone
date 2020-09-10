@@ -1,12 +1,13 @@
 alembic==1.4.2
 click==7.1.2
--e git+https://github.com/jeffleary00/FSND-Capstone.git@b60d705990791bb098b5ee74e441d6efccc0cba9#egg=cs_mon
+-e git+https://github.com/jeffleary00/FSND-Capstone.git@adbe9b6b38f85552171577a94c1295406414d866#egg=cs_mon
 ecdsa==0.14.1
 Flask==1.1.2
 Flask-Cors==3.0.8
 Flask-Migrate==2.5.3
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.4.4
+gunicorn==20.0.4
 itsdangerous==1.1.0
 Jinja2==2.11.2
 Mako==1.1.3

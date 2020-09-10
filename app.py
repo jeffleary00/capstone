@@ -4,7 +4,7 @@ Part of the Capstone-Monitor project for Udacity FSND final project
 
 import os
 import json
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, render_template
 from flask_cors import CORS
 from models import setup_db, Server, Cluster
 from auth import AuthError, requires_auth
@@ -262,6 +262,10 @@ def servers_delete(id):
             'delete': id}), 200
     except Exception as x:
         abort(404, str(x))
+
+@app.route("/", methods=['GET'])
+def main_page():
+    return render_template("index.html")
 
 ## --- error handlers --- ##
 @app.errorhandler(422)

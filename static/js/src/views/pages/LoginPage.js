@@ -4,7 +4,7 @@ const environment = {
   apiServerUrl: 'https://cs-monitor.herokuapp.com',
   auth0: {
     url: 'dev-us1d520w.us.auth0.com',
-    audience: 'Monitor-API',
+    audience: 'https://cs-monitor.herokuapp.com',
     clientId: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
     callbackURL: 'https://cs-monitor.herokuapp.com#!/login',
   }

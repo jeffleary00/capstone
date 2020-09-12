@@ -13,25 +13,15 @@ window.addEventListener('load', async () => {
     redirect_uri: 'https://cs-monitor.herokuapp.com'
   });
 });
-window.addEventListener('load', async () => {
-  if (auth0) {
-    await auth0.handleRedirectCallback();
-    user = await auth0.getUser();
-    console.log(user);
-  }
-});
 
-if (auth0) {
-  m.render(root, [
-    m("div", "welcome registered user")
-  ]);
-} else {
-  m.render(root, [
-    m("div", "welcome unknown guest"),
-    m("button.button", {id: "login"}, "login")
-  ]);
-}
+m.render(root, [
+  m("div", "welcome unknown guest"),
+  m("button.button", {id: "login"}, "login")
+]);
 
 document.getElementById('login').addEventListener('click', async () => {
   await auth0.loginWithRedirect();
+  await auth0.handleRedirectCallback();
+  user = await auth0.getUser();
+  console.log(user);
 });

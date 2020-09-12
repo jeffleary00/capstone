@@ -9,7 +9,7 @@ window.addEventListener('load', async () => {
   auth0 = await createAuth0Client({
     domain: 'dev-us1d520w.us.auth0.com',
     client_id: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
-    redirect_uri: 'https://cs-monitor.herokuapp.com#!/login'
+    redirect_uri: 'https://cs-monitor.herokuapp.com'
   });
 
   await auth0.handleRedirectCallback();

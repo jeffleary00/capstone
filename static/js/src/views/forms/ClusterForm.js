@@ -1,46 +1,46 @@
 const m = require("mithril")
 var Cluster = require("../../models/Cluster.js")
 
-module.exports = {
-    oninit: function(vnode) {
-      if (vnode.attrs.id) {
-        Cluster.load(vnode.attrs.id)
-      } else {
-        Cluster.current = {"name": "my cluster"}
-      }
-    },
-    view: function() {
-        return m("form", { name: "cluster-form",
-                           onsubmit: function(event) {
-                            event.preventDefault();
-                            Cluster.save();
-                            m.route.set("/");
-                          }
-          }, m("fieldset", [
-              m("div", {class: "flex"}, [
-                m("label", "Name"),
-                m("input[type=text][placeholder=Name]", {
-                  id: "name",
-                  oninput: function(e) {
-                    Cluster.current.name = e.target.value;
-                  },
-                  value: Cluster.current.name
-                })
-              ]),
-              m("div", {class: "flex"}, [
-                m("label", "Notes"),
-                m("textarea[rows=6]", {
-                  id: "notes",
-                  oninput: function(e) {
-                    Cluster.current.notes = e.target.value;
-                  },
-                  value: Cluster.current.notes
-                })
-              ]),
-              m("div", {class: "flex"}, getButtons())
-            ])
-        )
+const ClusterForm = {
+  oninit: function(vnode) {
+    if (vnode.attrs.id) {
+      Cluster.load(vnode.attrs.id)
+    } else {
+      Cluster.current = {"name": "my cluster"}
     }
+  },
+  view: function() {
+    return m("form", { name: "cluster-form",
+                       onsubmit: function(event) {
+                        event.preventDefault();
+                        Cluster.save();
+                        m.route.set("/");
+                      }
+      }, m("fieldset", [
+        m("div", {class: "flex"}, [
+          m("label", "Name"),
+          m("input[type=text][placeholder=Name]", {
+            id: "name",
+            oninput: function(e) {
+              Cluster.current.name = e.target.value;
+            },
+            value: Cluster.current.name
+          })
+        ]),
+        m("div", {class: "flex"}, [
+          m("label", "Notes"),
+          m("textarea[rows=6]", {
+            id: "notes",
+            oninput: function(e) {
+              Cluster.current.notes = e.target.value;
+            },
+            value: Cluster.current.notes
+          })
+        ]),
+        m("div", {class: "flex"}, getButtons())
+      ])
+    )
+  }
 }
 
 const getButtons = function() {
@@ -73,3 +73,5 @@ const getButtons = function() {
   }
   return myButtons;
 }
+
+export {ClusterForm};

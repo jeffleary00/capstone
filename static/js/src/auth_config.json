@@ -1,0 +1,6 @@
+{
+  "domain": "dev-us1d520w.us.auth0.com",
+  "audience": "https://cs-monitor.herokuapp.com",
+  "clientId": "THLnI4SjTwYduH5sGfzHjAR37agGeL10",
+  "callbackURL": "https://cs-monitor.herokuapp.com#!/login"
+}

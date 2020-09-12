@@ -1,7 +1,6 @@
 const m = require("mithril");
-// import { toggleDisplayState } from '';
 
-module.exports = {
+const ClusterCard = {
   view: function(vnode) {
     var c = vnode.attrs.data;
     console.log(c);
@@ -55,3 +54,5 @@ function toggleDisplayState(elementId) {
     target.style.display = "block";
   }
 }
+
+export {ClusterCard};

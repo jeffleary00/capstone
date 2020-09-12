@@ -1,14 +1,10 @@
 const m = require("mithril");
-var Cluster = require("../../models/Cluster");
-var ClusterCard = require("../components/ClusterCard");
-var AuthService = require("../../services/AuthService");
+import {Cluster} from "../../models/Cluster";
+import {ClusterCard} from "../components/ClusterCard";
+// import {auth0, login} from "../../auth";
 
-module.exports = {
+const DashPage = {
   oninit: function() {
-    auth = new AuthService();
-    if (! auth.isAuthenticated()) {
-      m.route.set("/login");
-    }
     Cluster.loadList;
   },
   view: function() {
@@ -34,3 +30,5 @@ module.exports = {
     return children;
   }
 }
+
+export {DashPage};

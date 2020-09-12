@@ -46,4 +46,4 @@ var Cluster = {
   }
 }
 
-module.exports = Cluster
+export {Cluster};

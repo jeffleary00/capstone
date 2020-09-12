@@ -1,6 +1,6 @@
 const m = require("mithril");
 
-module.exports = {
+const ClusterPage = {
   view: function(cluster) {
     console.log(cluster)
     return m("div", {class: "card"}, [
@@ -9,3 +9,5 @@ module.exports = {
     ]);
   }
 }
+
+export {ClusterPage};

@@ -1,6 +1,6 @@
 const m = require("mithril");
 
-module.exports = {
+const NavBar = {
   view: function() {
     return m("div", [
       m(m.route.Link, {url: "/token"}, "token"),
@@ -10,3 +10,5 @@ module.exports = {
     ));
   }
 }
+
+export {NavBar};

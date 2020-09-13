@@ -1,4 +1,4 @@
-import {auth0, initClient, decodeToken} from "./auth";
+import {auth0, token, initClient, decodeToken} from "./auth";
 import {NavBar} from './views/components/NavBar';
 import {LandingPage} from './views/pages/LandingPage';
 import {DashPage} from './views/pages/DashPage';
@@ -13,7 +13,7 @@ window.addEventListener('load', async () => {
 window.addEventListener('load', async () => {
   try {
     await auth0.handleRedirectCallback();
-    await auth0.getTokenSilently();
+    token = await auth0.getTokenSilently();
     console.log(decodeToken());
   } catch (err) {}
 });

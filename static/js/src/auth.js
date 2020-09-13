@@ -1,48 +1,35 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
+import jwt_decode from "jwt-decode";
 
-// vars
 let auth0 = null;
+let token = null;
+let decoded = null;
+let permissions = null;
 let environment = {
-  domain: "dev-us1d520w.us.auth0.com",
-  audience: "https://cs-monitor.herokuapp.com",
-  clientId: "THLnI4SjTwYduH5sGfzHjAR37agGeL10",
-  callbackURL: "https://cs-monitor.herokuapp.com#!/login"
-};
-// var environment = null;
-
-
-// functions
-const fetchAuthConfig = function() {
-  fetch("../auth_config.json");
+  domain: 'dev-us1d520w.us.auth0.com',
+  client_id: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
+  redirect_uri: 'https://cs-monitor.herokuapp.com#!/dashboard',
+  audience: 'https://cs-monitor.herokuapp.com'
 }
 
-const configureClient = async function() {
-  if (environment === null) {
-    // const response = await fetchAuthConfig();
-    // environment = await response.json();
-  }
-
+const initClient = async function() {
   auth0 = await createAuth0Client({
     domain: environment.domain,
-    client_id: environment.clientId,
+    client_id: environment.client_id,
+    redirect_uri: environment.redirect_uri,
     audience: environment.audience
   });
 }
 
-const login = async function() {
-  await auth0.loginWithRedirect({
-    redirect_uri: environment.callbackURL
-  });
+const decodeToken = function() {
+  if (token) {
+    decoded = jwt_decode(token);
+    return decoded;
+  }
 }
 
-const logout = function() {
-  auth0.logout({
-    returnTo: window.location.origin
-  });
+const hasPermission = function(p) {
+  return permissions && permissions.length && permissions.indexOf(permission) >= 0;
 }
 
-const userDetails = async function() {
-  return JSON.stringify(await auth0.getUser());
-}
-
-export {auth0, logout, login, configureClient, userDetails};
+export {auth0, token, initClient, decodeToken, hasPermission};

@@ -1,33 +1,25 @@
-import createAuth0Client from '@auth0/auth0-spa-js';
+import {auth0, token, initClient, decodeToken} from "./auth";
+import {NavBar} from './views/components/NavBar';
+import {LandingPage} from './views/pages/LandingPage';
+import {DashPage} from './views/pages/DashPage';
 
-const m = require("mithril")
+const m = require("mithril");
 const root = document.getElementById("myapp");
-let auth0 = null;
-let user = null;
+const nav = document.getElementById("mynav");
 
 window.addEventListener('load', async () => {
-  console.log("creating auth0 client");
-  auth0 = await createAuth0Client({
-    domain: 'dev-us1d520w.us.auth0.com',
-    client_id: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
-    redirect_uri: 'https://cs-monitor.herokuapp.com',
-    audience: 'https://cs-monitor.herokuapp.com' 
-  });
+  await initClient();
 });
 window.addEventListener('load', async () => {
-  if (auth0) {
+  try {
     await auth0.handleRedirectCallback();
-    var token = await auth0.getTokenSilently();
-    console.log("token");
-    console.log(token);
-  }
+    await auth0.getTokenSilently();
+    console.log(decodeToken());
+  } catch (err) {}
 });
 
-m.render(root, [
-  m("div", "welcome unknown guest"),
-  m("button.button", {id: "login"}, "login")
-]);
-
-document.getElementById('login').addEventListener('click', async () => {
-  await auth0.loginWithRedirect();
-});
+m.mount(nav, NavBar);
+m.route(root, "/", {
+  "/": LandingPage,
+  "/dashboard": DashPage
+})

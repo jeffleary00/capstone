@@ -1,7 +1,7 @@
 const m = require("mithril");
 import {Cluster} from "../../models/Cluster";
 import {ClusterCard} from "../components/ClusterCard";
-// import {auth0, login} from "../../auth";
+import {auth0, token, hasPermission} from "../../auth";
 
 const DashPage = {
   oninit: function() {

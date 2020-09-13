@@ -16,10 +16,9 @@ window.addEventListener('load', async () => {
 window.addEventListener('load', async () => {
   if (auth0) {
     await auth0.handleRedirectCallback();
-    user = await auth0.getUser();
-    console.log("user data");
-    console.log(user);
-    console.log(window.location.hash.substr(1).split('&')[0].split('='););
+    var token = await auth0.getTokenSilently();
+    console.log("token");
+    console.log(token);
   }
 });
 

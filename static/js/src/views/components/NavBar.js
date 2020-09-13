@@ -6,7 +6,7 @@ const NavBar = {
     if (!token) {
       return m("div", {class: "navbar"}, [
         m("button", {
-          class: "button",
+          class: "button small",
           style: "float: right;",
           id: "loginButton",
           onclick: async function() {
@@ -17,12 +17,12 @@ const NavBar = {
       ]);
     } else {
       return m("div", {class: "navbar"}, [
-        m("button.button", {
-          class: "small",
+        m("button", {
+          class: "button small",
           style: "float: right;",
           id: "logoutButton"}, "Logout"),
         m("button", {
-          class: "button",
+          class: "button small",
           style: "float: right;",
           id: "cookieButton"}, "Token"),
         m("div", {class: "title"}, "Capstone Monitor"),

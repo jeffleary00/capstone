@@ -13,9 +13,13 @@ window.addEventListener('load', async () => {
 window.addEventListener('load', async () => {
   try {
     await auth0.handleRedirectCallback();
-    token = await auth0.getTokenSilently();
-    console.log(decodeToken());
-  } catch (err) {}
+    console.log("redirect callback complete");
+    t = await auth0.getTokenSilently();
+    console.log(t);
+    console.log(decodeToken(t));
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 m.mount(nav, NavBar);

@@ -21,7 +21,8 @@ const initClient = async function() {
   });
 }
 
-const decodeToken = function() {
+const decodeToken = function(t) {
+  token = t;
   decoded = jwt_decode(token);
   return decoded;
 }

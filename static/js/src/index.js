@@ -14,7 +14,7 @@ window.addEventListener('load', async () => {
   try {
     await auth0.handleRedirectCallback();
     console.log("redirect callback complete");
-    t = await auth0.getTokenSilently();
+    var t = await auth0.getTokenSilently();
     console.log(t);
     console.log(decodeToken(t));
   } catch (err) {

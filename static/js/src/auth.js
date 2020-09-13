@@ -22,10 +22,8 @@ const initClient = async function() {
 }
 
 const decodeToken = function() {
-  if (token) {
-    decoded = jwt_decode(token);
-    return decoded;
-  }
+  decoded = jwt_decode(token);
+  return decoded;
 }
 
 const hasPermission = function(p) {
@@ -35,7 +33,7 @@ const hasPermission = function(p) {
   if (token && !decoded) {
     decodeToken();
   }
-  return permissions && permissions.length && permissions.indexOf(permission) >= 0;
+  return permissions && permissions.length && permissions.indexOf(p) >= 0;
 }
 
 export {auth0, token, initClient, decodeToken, hasPermission};

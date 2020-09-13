@@ -19,6 +19,7 @@ window.addEventListener('load', async () => {
     user = await auth0.getUser();
     console.log("user data");
     console.log(user);
+    console.log(window.location.hash.substr(1).split('&')[0].split('='););
   }
 });
 

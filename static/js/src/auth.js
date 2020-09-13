@@ -29,6 +29,12 @@ const decodeToken = function() {
 }
 
 const hasPermission = function(p) {
+  if (!token) {
+    return false;
+  }
+  if (token && !decoded) {
+    decodeToken();
+  }
   return permissions && permissions.length && permissions.indexOf(permission) >= 0;
 }
 

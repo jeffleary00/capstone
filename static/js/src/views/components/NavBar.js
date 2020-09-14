@@ -4,35 +4,44 @@ import {auth0, token} from "../../auth.js";
 const NavBar = {
   view: function() {
     let elements = [
-      m("span", {style: "float: right;"}, [
+      m(m.route.Link, {
+        href: "/",
+        class: "brand"
+      }, m("span", "Capstone Monitor")),
+      m("input", {
+        id: "bmenub",
+        type: "checkbox",
+        class: "show"
+      }),
+      m("label", {
+        class: "burger pseudo button",
+        for: "bmenub",
+      }, "menu"),
+      m("div", {class: menu}, [
+        m(m.route.Link, {
+          class: "button psuedo",
+          href: "/dashboard",
+          id: "dashboardLink",
+          style: "display: none;"}, "dashboard"),
         m("button", {
           class: "button small",
-          style: "float: right;",
-          id: "loginButton",
-          onclick: async function() {
-            await auth0.loginWithRedirect();
-          }}, "Login"),
-        m("button", {
-          class: "button small",
-          style: "float: right;",
-          id: "logoutButton",
-          style: "display: none;"}, "Logout"),
-        m("button", {
-          class: "button small",
-          style: "float: right;",
           id: "tokenButton",
           style: "display: none;",
           onclick: function() {
             prompt("press ctrl+c to copy the text below", token);
-          }}, "Token")
-      ]),
-      m("div", {class: "title"}, "Capstone Monitor"),
-      m(m.route.Link, {
-        href: "/dashboard",
-        id: "dashboardLink",
-        style: "display: none;"}, "dashboard")
+          }}, "Token"),
+        m("button", {
+          class: "button small",
+          id: "logoutButton",
+          style: "display: none;"}, "Logout"),
+        m("button", {
+          class: "button small",
+          id: "loginButton",
+          onclick: async function() {
+            await auth0.loginWithRedirect();
+          }}, "Login")
+      ])
     ]
-
     return m("div", {class: "navbar"}, elements);
   },
   refresh: function() {

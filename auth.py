@@ -56,7 +56,9 @@ def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
             'code': 'invalid_claims',
-            'description': 'Permissions not included in JWT.'
+            'description': 'Permissions not included in JWT.',
+            'permission': permission,
+            'payload': payload
         }, 400)
 
     if permission not in payload['permissions']:

@@ -9,11 +9,11 @@ const root = document.getElementById("myapp");
 const nav = document.getElementById("mynav");
 
 window.addEventListener('load', async () => {
-  await initClient();
+  initClient();
   try {
-    await auth0.handleRedirectCallback();
+    auth0.handleRedirectCallback();
     console.log("redirect callback complete");
-    var t = await auth0.getTokenSilently();
+    var t = auth0.getTokenSilently();
     console.log(decodeToken(t));
     NavBar.refresh();
   } catch (err) {

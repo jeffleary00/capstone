@@ -34,7 +34,7 @@ const hasPermission = function(p) {
   if (token && !decoded) {
     decodeToken();
   }
-  return permissions && permissions.length && permissions.indexOf(p) >= 0;
+  return decoded.permissions && decoded.permissions.length && decoded.permissions.indexOf(p) >= 0;
 }
 
 export {auth0, token, initClient, decodeToken, hasPermission};

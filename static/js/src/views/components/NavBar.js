@@ -19,39 +19,43 @@ const NavBar = {
       }, "menu"),
       m("div", {class: "menu"}, [
         m(m.route.Link, {
-          class: "button psuedo",
+          class: "button psuedo small",
           href: "/dashboard",
           id: "dashboardLink",
           style: "display: none;"}, "Dashboard"),
         m("button", {
-          class: "button psuedo",
+          class: "psuedo small",
           id: "tokenButton",
           style: "display: none;",
           onclick: function() {
-            prompt("press ctrl+c to copy the text below", token);
+            prompt("press ctrl+c to copy the jwt below", token);
           }}, "Token"),
         m("button", {
-          class: "button",
+          class: "psuedo small",
           id: "logoutButton",
-          style: "display: none;"}, "Logout"),
+          style: "display: none;",
+          onclick: function() {
+            auth0.logout();
+            window.location.replace("/");
+          }}, "Logout"),
         m("button", {
-          class: "button",
+          class: "psuedo small",
           id: "loginButton",
           onclick: async function() {
             await auth0.loginWithRedirect();
           }}, "Login")
       ])
     ]
-    return m("div", {class: "navbar"}, elements);
+    return elements;
   },
   refresh: function() {
     if (token) {
       document.getElementById("loginButton").style.display="none";
-      document.getElementById("logoutButton").style.display="block";
-      document.getElementById("tokenButton").style.display="block";
-      document.getElementById("dashboardLink").style.display="block";
+      document.getElementById("logoutButton").style.display="inline";
+      document.getElementById("tokenButton").style.display="inline";
+      document.getElementById("dashboardLink").style.display="inline";
     } else {
-      document.getElementById("loginButton").style.display="block";
+      document.getElementById("loginButton").style.display="inline";
       document.getElementById("logoutButton").style.display="none";
       document.getElementById("tokenButton").style.display="none";
       document.getElementById("dashboardLink").style.display="none";

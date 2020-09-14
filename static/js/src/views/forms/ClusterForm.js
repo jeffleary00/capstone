@@ -60,7 +60,7 @@ const getButtons = function() {
             if (window.confirm("Are you sure you want to delete this?")) {
               return m.request({
                 method: "DELETE",
-                url: "https://rem-rest-api.herokuapp.com/api/clusters/" + Cluster.current.id,
+                url: "https://cs-monitor.herokuapp.com//api/clusters/" + Cluster.current.id,
                 withCredentials: true
               }).then(function(result) {
                   m.route.set("/clusters")

@@ -9,7 +9,7 @@ const root = document.getElementById("myapp");
 const nav = document.getElementById("mynav");
 
 window.addEventListener('load', async () => {
-  initClient();
+  await initClient();
   try {
     await auth0.handleRedirectCallback();
     var t = await auth0.getTokenSilently();

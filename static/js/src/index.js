@@ -11,10 +11,8 @@ const nav = document.getElementById("mynav");
 window.addEventListener('load', async () => {
   initClient();
   try {
-    auth0.handleRedirectCallback();
-    console.log("redirect callback complete");
-    var t = auth0.getTokenSilently();
-    console.log(decodeToken(t));
+    await auth0.handleRedirectCallback();
+    var t = await auth0.getTokenSilently();
     NavBar.refresh();
   } catch (err) {
     console.log(err);

@@ -22,7 +22,7 @@ const NavBar = {
         id: "tokenButton",
         style: "display: none;",
         onclick: function() {
-          window.alert("JWT: " + token);
+          prompt("press ctrl+c to copy the text below", token);
         }}, "Token"),
       m("div", {class: "title"}, "Capstone Monitor"),
       m(m.route.Link, {

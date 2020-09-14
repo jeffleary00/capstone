@@ -12,6 +12,7 @@ const ClusterForm = {
   view: function() {
     return m("form", { name: "cluster-form",
                        onsubmit: function(event) {
+                        console.log(Cluster);
                         event.preventDefault();
                         Cluster.save();
                         m.route.set("/dashboard");

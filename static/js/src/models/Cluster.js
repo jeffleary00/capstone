@@ -41,7 +41,8 @@ let Cluster = {
     }
 
     return m.request(obj).then(function(result) {
-      console.log(result.status, result.body)
+      console.log(obj.extract(result));
+      console.log(result.status, result.body);
     })
   }
 }

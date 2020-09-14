@@ -20,7 +20,10 @@ const NavBar = {
         class: "button small",
         style: "float: right;",
         id: "tokenButton",
-        style: "display: none;"}, "Token"),
+        style: "display: none;",
+        onclick: function() {
+          window.alert("JWT: " + token);
+        }}, "Token"),
       m("div", {class: "title"}, "Capstone Monitor"),
       m(m.route.Link, {
         href: "/dashboard",

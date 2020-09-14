@@ -2,6 +2,7 @@ import {auth0, token, initClient, decodeToken} from "./auth";
 import {NavBar} from './views/components/NavBar';
 import {LandingPage} from './views/pages/LandingPage';
 import {DashPage} from './views/pages/DashPage';
+import {ClusterForm} from './views/forms/ClusterForm';
 
 const m = require("mithril");
 const root = document.getElementById("myapp");
@@ -23,5 +24,6 @@ window.addEventListener('load', async () => {
 m.mount(nav, NavBar);
 m.route(root, "/", {
   "/": LandingPage,
-  "/dashboard": DashPage
+  "/dashboard": DashPage,
+  "/clusters/create": ClusterForm
 })

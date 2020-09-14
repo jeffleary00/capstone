@@ -4,26 +4,28 @@ import {auth0, token} from "../../auth.js";
 const NavBar = {
   view: function() {
     let elements = [
-      m("button", {
-        class: "button small",
-        style: "float: right;",
-        id: "loginButton",
-        onclick: async function() {
-          await auth0.loginWithRedirect();
-        }}, "Login"),
-      m("button", {
-        class: "button small",
-        style: "float: right;",
-        id: "logoutButton",
-        style: "display: none;"}, "Logout"),
-      m("button", {
-        class: "button small",
-        style: "float: right;",
-        id: "tokenButton",
-        style: "display: none;",
-        onclick: function() {
-          prompt("press ctrl+c to copy the text below", token);
-        }}, "Token"),
+      m("span", {style: "float: right;"}, [
+        m("button", {
+          class: "button small",
+          style: "float: right;",
+          id: "loginButton",
+          onclick: async function() {
+            await auth0.loginWithRedirect();
+          }}, "Login"),
+        m("button", {
+          class: "button small",
+          style: "float: right;",
+          id: "logoutButton",
+          style: "display: none;"}, "Logout"),
+        m("button", {
+          class: "button small",
+          style: "float: right;",
+          id: "tokenButton",
+          style: "display: none;",
+          onclick: function() {
+            prompt("press ctrl+c to copy the text below", token);
+          }}, "Token")
+      ]),
       m("div", {class: "title"}, "Capstone Monitor"),
       m(m.route.Link, {
         href: "/dashboard",

@@ -9,14 +9,12 @@ const nav = document.getElementById("mynav");
 
 window.addEventListener('load', async () => {
   await initClient();
-});
-window.addEventListener('load', async () => {
   try {
     await auth0.handleRedirectCallback();
     console.log("redirect callback complete");
     var t = await auth0.getTokenSilently();
-    console.log(t);
-    console.log(decodeToken(t));
+    decodeToken(t);
+    NavBar.refresh();
   } catch (err) {
     console.log(err);
   }

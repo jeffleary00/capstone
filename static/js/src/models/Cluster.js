@@ -8,7 +8,7 @@ var Cluster = {
       return m.request({
           method: "GET",
           url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
-          // withCredentials: true,
+          withCredentials: true,
       })
       .then(function(result) {
         console.log(result);
@@ -20,7 +20,7 @@ var Cluster = {
     return m.request({
           method: "GET",
           url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
-          // withCredentials: true
+          withCredentials: true
       }).then(function(result) {
         Cluster.current = result.clusters
       })
@@ -31,7 +31,7 @@ var Cluster = {
         method: "POST",
         url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
         body: Cluster.current,
-        // withCredentials: true,
+        withCredentials: true,
         extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}}
     }
 

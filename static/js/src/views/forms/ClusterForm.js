@@ -14,7 +14,7 @@ const ClusterForm = {
                        onsubmit: function(event) {
                         event.preventDefault();
                         Cluster.save();
-                        m.route.set("/");
+                        m.route.set("/dashboard");
                       }
       }, m("fieldset", [
         m("div", {class: "flex"}, [
@@ -60,7 +60,7 @@ const getButtons = function() {
             if (window.confirm("Are you sure you want to delete this?")) {
               return m.request({
                 method: "DELETE",
-                url: "https://cs-monitor.herokuapp.com//api/clusters/" + Cluster.current.id,
+                url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id,
                 withCredentials: true
               }).then(function(result) {
                   m.route.set("/clusters")

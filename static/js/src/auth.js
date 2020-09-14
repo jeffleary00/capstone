@@ -32,7 +32,7 @@ const hasPermission = function(p) {
     return false;
   }
   if (token && !decoded) {
-    decodeToken();
+    decodeToken(token);
   }
   return decoded.permissions && decoded.permissions.length && decoded.permissions.indexOf(p) >= 0;
 }

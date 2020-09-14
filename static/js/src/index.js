@@ -13,7 +13,7 @@ window.addEventListener('load', async () => {
     await auth0.handleRedirectCallback();
     console.log("redirect callback complete");
     var t = await auth0.getTokenSilently();
-    decodeToken(t);
+    console.log(decodeToken(t));
     NavBar.refresh();
   } catch (err) {
     console.log(err);

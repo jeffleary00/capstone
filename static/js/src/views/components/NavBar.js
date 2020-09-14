@@ -17,25 +17,25 @@ const NavBar = {
         class: "burger pseudo button",
         for: "bmenub",
       }, "menu"),
-      m("div", {class: menu}, [
+      m("div", {class: "menu"}, [
         m(m.route.Link, {
           class: "button psuedo",
           href: "/dashboard",
           id: "dashboardLink",
-          style: "display: none;"}, "dashboard"),
+          style: "display: none;"}, "Dashboard"),
         m("button", {
-          class: "button small",
+          class: "button psuedo",
           id: "tokenButton",
           style: "display: none;",
           onclick: function() {
             prompt("press ctrl+c to copy the text below", token);
           }}, "Token"),
         m("button", {
-          class: "button small",
+          class: "button",
           id: "logoutButton",
           style: "display: none;"}, "Logout"),
         m("button", {
-          class: "button small",
+          class: "button",
           id: "loginButton",
           onclick: async function() {
             await auth0.loginWithRedirect();

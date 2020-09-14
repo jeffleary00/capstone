@@ -37,4 +37,4 @@ const hasPermission = function(p) {
   return decoded.permissions && decoded.permissions.length && decoded.permissions.indexOf(p) >= 0;
 }
 
-export {auth0, token, initClient, decodeToken, hasPermission};
+export {auth0, token, decoded, initClient, decodeToken, hasPermission};

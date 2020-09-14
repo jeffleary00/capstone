@@ -5,8 +5,8 @@ import {auth0, token, hasPermission} from "../../auth";
 
 const DashPage = {
   oninit: function() {
-    Cluster.loadList;
-    window.setInterval(Cluster.loadlist, 60000);
+    Cluster.loadList(token);
+    window.setInterval(Cluster.loadlist(token), 60000);
   },
   view: function() {
     var children = [];

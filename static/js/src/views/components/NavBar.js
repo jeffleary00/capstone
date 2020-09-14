@@ -1,5 +1,5 @@
 const m = require("mithril");
-import {auth0, token, decoded} from "../../auth.js";
+import {auth0, token} from "../../auth.js";
 
 const NavBar = {
   view: function() {
@@ -38,7 +38,6 @@ const NavBar = {
             auth0.logout();
             auth0 = null;
             token = null;
-            decoded = null;
             window.location.replace("/");
           }}, "Logout"),
         m("button", {

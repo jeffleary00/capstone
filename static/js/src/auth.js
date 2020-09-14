@@ -3,7 +3,6 @@ import jwt_decode from "jwt-decode";
 
 let auth0 = null;
 let token = null;
-let decoded = null;
 let permissions = null;
 let environment = {
   domain: 'dev-us1d520w.us.auth0.com',
@@ -21,20 +20,16 @@ const initClient = async function() {
   });
 }
 
-const decodeToken = function(t) {
-  token = t;
-  decoded = jwt_decode(token);
-  return decoded;
+const decodeToken = function(rt) {
+  token = jwt_decode(rt);
+  return token;
 }
 
 const hasPermission = function(p) {
   if (!token) {
     return false;
   }
-  if (token && !decoded) {
-    decodeToken(token);
-  }
-  return decoded.permissions && decoded.permissions.length && decoded.permissions.indexOf(p) >= 0;
+  return token.permissions && token.permissions.length && token.permissions.indexOf(p) >= 0;
 }
 
-export {auth0, token, decoded, initClient, decodeToken, hasPermission};
+export {auth0, token, initClient, decodeToken, hasPermission};

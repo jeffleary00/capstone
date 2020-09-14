@@ -1,6 +1,6 @@
 const m = require("mithril");
 
-var Cluster = {
+let Cluster = {
   list: [],
   current: {},
 
@@ -12,7 +12,7 @@ var Cluster = {
       })
       .then(function(result) {
         console.log(result);
-          Cluster.list = result.clusters
+        Cluster.list = result.clusters;
       })
   },
 
@@ -22,7 +22,7 @@ var Cluster = {
           url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
           withCredentials: true
       }).then(function(result) {
-        Cluster.current = result.clusters
+        Cluster.current = result.clusters;
       })
   },
 

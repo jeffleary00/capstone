@@ -6,7 +6,7 @@ let Cluster = {
   current: {},
 
   loadList: function(jwt=token) {
-    opts = {
+    let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
     }
@@ -20,7 +20,7 @@ let Cluster = {
   },
 
   load: function(id, jwt=token) {
-    opts = {
+    let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
     }
@@ -33,7 +33,7 @@ let Cluster = {
   },
 
   save: function(jwt=token) {
-    opts = {
+    let opts = {
       method: "POST",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
       body: Cluster.current,

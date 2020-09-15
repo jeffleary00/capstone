@@ -7,8 +7,8 @@ const DashPage = {
   oninit: function() {
     console.log("Cluster:");
     console.log(Cluster);
-    
-    Cluster.loadList;
+
+    Cluster.loadList();
     window.setInterval(Cluster.loadlist(), 60000);
   },
   view: function() {

@@ -9,6 +9,7 @@ let Cluster = {
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
+      responseType: "json"
     }
     if (jwt !== null) {
       opts.headers = {Authorization: "Bearer " +  jwt };
@@ -23,6 +24,7 @@ let Cluster = {
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
+      responseType: "json"
     }
     if (jwt !== null) {
       opts.headers = {Authorization: "Bearer " +  jwt};
@@ -36,6 +38,7 @@ let Cluster = {
     let opts = {
       method: "POST",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
+      responseType: "json",
       body: Cluster.current,
     }
     if (jwt !== null) {

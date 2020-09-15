@@ -14,10 +14,9 @@ let Cluster = {
       responseType: "json"
     }
     if (jwt !== null) {
-      let label = "Authorization";
-      let bearer = "Bearer " + jwt;
-      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
-      // opts.headers = {"Authorization": "Bearer " +  jwt };
+      let key = "Authorization";
+      let value = "Bearer " + jwt;
+      opts.headers = {key: value};
     }
     return m.request(opts).then(function(result) {
       console.log(result);
@@ -34,10 +33,9 @@ let Cluster = {
       responseType: "json"
     }
     if (jwt !== null) {
-      let label = "Authorization";
-      let bearer = "Bearer " + jwt;
-      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
-      // opts.headers = {"Authorization": "Bearer " +  jwt };
+      let key = "Authorization";
+      let value = "Bearer " + jwt;
+      opts.headers = {key: value};
     }
     return m.request(opts).then(function(result) {
         Cluster.current = result.clusters;
@@ -54,10 +52,9 @@ let Cluster = {
       body: Cluster.current,
     }
     if (jwt !== null) {
-      let label = "Authorization";
-      let bearer = "Bearer " + jwt;
-      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
-      // opts.headers = {"Authorization": "Bearer " +  jwt };
+      let key = "Authorization";
+      let value = "Bearer " + jwt;
+      opts.headers = {key: value};
     }
     if (Cluster.current.id) {
       opts.method = "PUT"

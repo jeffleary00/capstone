@@ -61,17 +61,17 @@ const NavBar = {
   refresh: function() {
     if (token) {
       document.getElementById("loginButton").style.display="none";
-      document.getElementById("logoutButton").style.display="inline";
-      document.getElementById("tokenButton").style.display="inline";
-      document.getElementById("dashboardLink").style.display="inline";
+      document.getElementById("logoutButton").style.display="block";
+      document.getElementById("tokenButton").style.display="block";
+      document.getElementById("dashboardLink").style.display="block";
       if (hasPermission('post:clusters')) {
-        document.getElementById("addClusterLink").style.display="inline";
+        document.getElementById("addClusterLink").style.display="block";
       }
       if (hasPermission('post:servers')) {
-        document.getElementById("addServerLink").style.display="inline";
+        document.getElementById("addServerLink").style.display="block";
       }
     } else {
-      document.getElementById("loginButton").style.display="inline";
+      document.getElementById("loginButton").style.display="block";
       document.getElementById("logoutButton").style.display="none";
       document.getElementById("tokenButton").style.display="none";
       document.getElementById("dashboardLink").style.display="none";

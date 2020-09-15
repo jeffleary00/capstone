@@ -16,7 +16,7 @@ let Cluster = {
     if (jwt !== null) {
       let label = "Authorization";
       let bearer = "Bearer " + jwt;
-      opts.config: function(xhr) {xhr.setRequestHeader(label, bearer)};
+      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
       // opts.headers = {"Authorization": "Bearer " +  jwt };
     }
     return m.request(opts).then(function(result) {
@@ -36,7 +36,7 @@ let Cluster = {
     if (jwt !== null) {
       let label = "Authorization";
       let bearer = "Bearer " + jwt;
-      opts.config: function(xhr) {xhr.setRequestHeader(label, bearer)};
+      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
       // opts.headers = {"Authorization": "Bearer " +  jwt };
     }
     return m.request(opts).then(function(result) {
@@ -56,7 +56,7 @@ let Cluster = {
     if (jwt !== null) {
       let label = "Authorization";
       let bearer = "Bearer " + jwt;
-      opts.config: function(xhr) {xhr.setRequestHeader(label, bearer)};
+      opts.config = function(xhr) {xhr.setRequestHeader(label, bearer)};
       // opts.headers = {"Authorization": "Bearer " +  jwt };
     }
     if (Cluster.current.id) {

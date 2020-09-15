@@ -6,31 +6,27 @@ let Cluster = {
   current: {},
 
   loadList: function(jwt=token) {
-    console.log(jwt);
-
+    let key = "Authorization";
+    let value = "Bearer " + jwt;
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
-      responseType: "json"
-    }
-    if (jwt !== null) {
-      let key = "Authorization";
-      let value = "Bearer " + jwt;
-      opts.headers = {key: value};
+      responseType: "json",
+      headers: {key: value, "Content-Type": "application/json"}
     }
     return m.request(opts).then(function(result) {
-      console.log(result);
       Cluster.list = result.clusters;
     })
   },
 
   load: function(id, jwt=token) {
-    console.log(jwt);
-
+    let key = "Authorization";
+    let value = "Bearer " + jwt;
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
-      responseType: "json"
+      responseType: "json",
+      headers: {key: value, "Content-Type": "application/json"}
     }
     if (jwt !== null) {
       let key = "Authorization";
@@ -43,18 +39,14 @@ let Cluster = {
   },
 
   save: function(jwt=token) {
-    console.log(jwt);
-
+    let key = "Authorization";
+    let value = "Bearer " + jwt;
     let opts = {
       method: "POST",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
       responseType: "json",
       body: Cluster.current,
-    }
-    if (jwt !== null) {
-      let key = "Authorization";
-      let value = "Bearer " + jwt;
-      opts.headers = {key: value};
+      headers: {key: value, "Content-Type": "application/json"}
     }
     if (Cluster.current.id) {
       opts.method = "PUT"

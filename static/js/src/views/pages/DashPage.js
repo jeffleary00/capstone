@@ -9,7 +9,7 @@ const DashPage = {
     console.log(Cluster);
 
     Cluster.loadList();
-    window.setInterval(Cluster.loadlist(), 60000);
+    window.setInterval(Cluster.loadList(), 60000);
   },
   view: function() {
     var children = [];

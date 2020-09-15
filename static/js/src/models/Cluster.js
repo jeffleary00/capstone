@@ -11,7 +11,7 @@ let Cluster = {
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
     }
     if (jwt !== null) {
-      opts.options = {header: {Authentication: "Bearer " +  jwt }};
+      opts.options = {headers: {Authentication: "Bearer " +  jwt }};
     }
     return m.request(opts).then(function(result) {
       console.log(result);
@@ -25,7 +25,7 @@ let Cluster = {
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
     }
     if (jwt !== null) {
-      opts.options = {header: {Authentication: "Bearer " +  jwt}};
+      opts.options = {headers: {Authentication: "Bearer " +  jwt}};
     }
     return m.request(opts).then(function(result) {
         Cluster.current = result.clusters;
@@ -39,7 +39,7 @@ let Cluster = {
       body: Cluster.current,
     }
     if (jwt !== null) {
-      opts.options = { header: { Authentication: "Bearer " +  jwt}};
+      opts.options = { headers: { Authentication: "Bearer " +  jwt}};
     }
     if (Cluster.current.id) {
       opts.method = "PUT"

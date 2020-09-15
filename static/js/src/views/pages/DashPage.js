@@ -24,17 +24,6 @@ const DashPage = {
       children.push(m("div", {class: "flex one two-600"}, widgets));
     }
 
-    // add the new-cluster button
-    if (hasPermission('post:clusters')) {
-      children.push(
-        m("button.button", {
-          class: "small button",
-          onclick:  function(e) {
-            m.route.set("/clusters/create");
-          }}, "add cluster")
-      );
-    }
-
     return children;
   }
 }

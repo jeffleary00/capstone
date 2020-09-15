@@ -1,5 +1,5 @@
 const m = require("mithril");
-import {auth0, token} from "../../auth.js";
+import {auth0, token, hasPermission} from "../../auth.js";
 
 const NavBar = {
   view: function() {
@@ -19,10 +19,20 @@ const NavBar = {
       }, "menu"),
       m("div", {class: "menu"}, [
         m(m.route.Link, {
-          class: "button psuedo small",
+          class: "button pseudo small",
           href: "/dashboard",
           id: "dashboardLink",
           style: "display: none;"}, "Dashboard"),
+        m(m.route.Link, {
+          class: "button pseudo small",
+          href: "/clusters/create",
+          id: "addClusterLink",
+          style: "display: none;"}, "Add Cluster"),
+        m(m.route.Link, {
+          class: "button pseudo small",
+          href: "/servers/create",
+          id: "addServerLink",
+          style: "display: none;"}, "Add Server"),
         m("button", {
           class: "psuedo small",
           id: "tokenButton",
@@ -31,7 +41,7 @@ const NavBar = {
             prompt("press ctrl+c to copy the jwt below", token);
           }}, "Token"),
         m("button", {
-          class: "psuedo small",
+          class: "small",
           id: "logoutButton",
           style: "display: none;",
           onclick: function() {
@@ -39,7 +49,7 @@ const NavBar = {
             token = null;
           }}, "Logout"),
         m("button", {
-          class: "psuedo small",
+          class: "small",
           id: "loginButton",
           onclick: async function() {
             await auth0.loginWithRedirect();
@@ -54,11 +64,19 @@ const NavBar = {
       document.getElementById("logoutButton").style.display="inline";
       document.getElementById("tokenButton").style.display="inline";
       document.getElementById("dashboardLink").style.display="inline";
+      if (hasPermission('post:clusters')) {
+        document.getElementById("addClusterLink").style.display="inline";
+      }
+      if (hasPermission('post:servers')) {
+        document.getElementById("addServerLink").style.display="inline";
+      }
     } else {
       document.getElementById("loginButton").style.display="inline";
       document.getElementById("logoutButton").style.display="none";
       document.getElementById("tokenButton").style.display="none";
       document.getElementById("dashboardLink").style.display="none";
+      document.getElementById("addServerLink").style.display="none";
+      document.getElementById("addClusterLink").style.display="none";
     }
   }
 }

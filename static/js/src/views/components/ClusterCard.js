@@ -1,9 +1,9 @@
 const m = require("mithril");
+import {hasPermission} from "../../auth";
 
 const ClusterCard = {
   view: function(vnode) {
     var c = vnode.attrs.data;
-    console.log(c);
     var health = (c.health === undefined) ? "ok" : c.health[1];
     var count = (c.servers === undefined) ? 0 : c.servers.length;
 
@@ -12,7 +12,7 @@ const ClusterCard = {
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          m.route.set('/clusters/:clusterid/notes', {clusterid: c.id})
+          prompt("Notes for '" + c.name + "'", c.notes);
         }}, "notes"),
       m("span", {
         class: "button pseudo stack",

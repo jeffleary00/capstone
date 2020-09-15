@@ -14,7 +14,7 @@ let Cluster = {
       responseType: "json"
     }
     if (jwt !== null) {
-      opts.headers = {Authorization: "Bearer " +  jwt };
+      opts.headers = {"Authorization": "Bearer " +  jwt };
     }
     return m.request(opts).then(function(result) {
       console.log(result);
@@ -31,7 +31,7 @@ let Cluster = {
       responseType: "json"
     }
     if (jwt !== null) {
-      opts.headers = {Authorization: "Bearer " +  jwt};
+      opts.headers = {"Authorization": "Bearer " +  jwt};
     }
     return m.request(opts).then(function(result) {
         Cluster.current = result.clusters;
@@ -48,7 +48,7 @@ let Cluster = {
       body: Cluster.current,
     }
     if (jwt !== null) {
-      opts.headers = {Authorization: "Bearer " +  jwt};
+      opts.headers = {"Authorization": "Bearer " +  jwt};
     }
     if (Cluster.current.id) {
       opts.method = "PUT"

@@ -14,7 +14,7 @@ const ClusterForm = {
                        onsubmit: function(event) {
                         console.log(Cluster);
                         event.preventDefault();
-                        Cluster.save();
+                        Cluster.save;
                         m.route.set("/dashboard");
                       }
       }, m("fieldset", [

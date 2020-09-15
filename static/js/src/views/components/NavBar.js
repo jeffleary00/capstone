@@ -36,9 +36,7 @@ const NavBar = {
           style: "display: none;",
           onclick: function() {
             auth0.logout();
-            auth0 = null;
             token = null;
-            window.location.replace("/");
           }}, "Logout"),
         m("button", {
           class: "psuedo small",

@@ -5,6 +5,7 @@ import {Cluster} from "../../models/Cluster";
 const ClusterForm = {
   oninit: function(vnode) {
     if (vnode.attrs.id) {
+      console.log("vnode:" + vnode);
       Cluster.load(vnode.attrs.id);
     } else {
       Cluster.current = {"name": "my cluster"};
@@ -17,11 +18,8 @@ const ClusterForm = {
         event.preventDefault();
         Cluster.save();
         m.route.set("/dashboard");}
-      }, [
-        getFieldset(),
-        getButtonset()
-      ]
-    )
+      }, getFieldset()
+    );
   }
 }
 
@@ -78,12 +76,13 @@ const getFieldset = function() {
 
   return m("fieldset", [
     m("div", {class: "flex"}, nameFields),
-    m("div", {class: "flex"}, noteFields)
+    m("div", {class: "flex"}, noteFields),
+    m("div", {class: "flex"}, getButtons()),
   ]);
 }
 
 
-const getButtonset = function() {
+const getButtons = function() {
   let myButtons = []
   if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
     myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));
@@ -114,7 +113,7 @@ const getButtonset = function() {
       }, "Delete")
     )
   }
-  return m("div", {class: "flex"}, myButtons);
+  return myButtons;
 }
 
 export {ClusterForm};

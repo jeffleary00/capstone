@@ -5,7 +5,8 @@ import {Cluster} from "../../models/Cluster";
 const ClusterForm = {
   oninit: function(vnode) {
     if (vnode.attrs.id) {
-      console.log("vnode:" + vnode);
+      console.log("vnode:");
+      console.log(vnode.attrs);
       Cluster.load(vnode.attrs.id);
     } else {
       Cluster.current = {"name": "my cluster"};

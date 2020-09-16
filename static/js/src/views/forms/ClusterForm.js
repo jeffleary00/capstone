@@ -22,6 +22,7 @@ const ClusterForm = {
     );
   },
   getFieldset: function() {
+    console.log(Cluster);
     let nameFields = [m("label", "Name")];
     let noteFields = [m("label", "Notes")];
     if (hasPermission('post:clusters')) {
@@ -34,7 +35,7 @@ const ClusterForm = {
           value: Cluster.current.name})
       );
       noteFields.push(
-        m("textarea[rows=6]", {
+        m("textarea[rows=8]", {
           id: "notes",
           oninput: function(e) {
             Cluster.current.notes = e.target.value;
@@ -49,7 +50,7 @@ const ClusterForm = {
           value: Cluster.current.name})
       );
       noteFields.push(
-        m("textarea[rows=6]", {
+        m("textarea[rows=8]", {
           id: "notes",
           oninput: function(e) {
             Cluster.current.notes = e.target.value;
@@ -64,7 +65,7 @@ const ClusterForm = {
           value: Cluster.current.name})
       );
       noteFields.push(
-        m("textarea[rows=6]", {
+        m("textarea[rows=8]", {
           id: "notes",
           readonly: "readonly",
           value: Cluster.current.notes})

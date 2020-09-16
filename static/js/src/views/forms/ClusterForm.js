@@ -9,6 +9,7 @@ const ClusterForm = {
     } else {
       Cluster.current = {"name": "my cluster"};
     }
+    console.log(Cluster);
   },
   view: function() {
     return m("form", {
@@ -17,13 +18,12 @@ const ClusterForm = {
         event.preventDefault();
         Cluster.save();
         m.route.set("/dashboard");}
-      }, getFieldset()
+      }, getFieldset(Cluster)
     );
   }
 }
 
-
-const getFieldset = function() {
+const getFieldset = function(Cluster) {
   let nameFields = [m("label", "Name")];
   let noteFields = [m("label", "Notes")];
   if (hasPermission('post:clusters')) {
@@ -76,12 +76,12 @@ const getFieldset = function() {
   return m("fieldset", [
     m("div", {class: "flex"}, nameFields),
     m("div", {class: "flex"}, noteFields),
-    m("div", {class: "flex"}, getButtons()),
+    m("div", {class: "flex"}, getButtons(Cluster)),
   ]);
 }
 
 
-const getButtons = function() {
+const getButtons = function(Cluster) {
   let myButtons = []
   if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
     myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));

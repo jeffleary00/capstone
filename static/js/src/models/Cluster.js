@@ -6,7 +6,6 @@ let Cluster = {
   current: {},
 
   loadList: function(jwt=token) {
-  
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
@@ -19,18 +18,11 @@ let Cluster = {
   },
 
   load: function(id, jwt=token) {
-    let key = "Authorization";
-    let value = "Bearer " + jwt;
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + id,
       responseType: "json",
-      headers: {key: value, "Content-Type": "application/json"}
-    }
-    if (jwt !== null) {
-      let key = "Authorization";
-      let value = "Bearer " + jwt;
-      opts.headers = {key: value};
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
     return m.request(opts).then(function(result) {
         Cluster.current = result.clusters;
@@ -38,14 +30,12 @@ let Cluster = {
   },
 
   save: function(jwt=token) {
-    let key = "Authorization";
-    let value = "Bearer " + jwt;
     let opts = {
       method: "POST",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
       responseType: "json",
       body: Cluster.current,
-      headers: {key: value, "Content-Type": "application/json"}
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
     if (Cluster.current.id) {
       opts.method = "PUT"

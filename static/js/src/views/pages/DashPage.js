@@ -1,12 +1,12 @@
 const m = require("mithril");
 import {Cluster} from "../../models/Cluster";
 import {ClusterCard} from "../components/ClusterCard";
-import {auth0, token, hasPermission} from "../../auth";
+import {token} from "../../auth";
 
 const DashPage = {
   oninit: function() {
-    Cluster.loadList();
-    window.setInterval(Cluster.loadList, 60000);
+    Cluster.loadList(token);
+    window.setInterval(Cluster.loadList, 10000);
   },
   view: function() {
     var children = [];

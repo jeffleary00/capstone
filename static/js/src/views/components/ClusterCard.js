@@ -30,6 +30,9 @@ const ClusterCard = {
       myButtons.push(
         m("span", {
           class: "button pseudo stack",
+          onclick: function() {
+            m.route.set('/clusters/:clusterid', {clusterid: c.id})
+          }
         }, "edit"),
       )
     }

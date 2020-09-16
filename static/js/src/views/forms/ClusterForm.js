@@ -18,101 +18,98 @@ const ClusterForm = {
         event.preventDefault();
         Cluster.save();
         m.route.set("/dashboard");}
-      }, getFieldset(Cluster)
+      }, this.getFieldset()
     );
-  }
-}
+  },
+  getFieldset: function() {
+    let nameFields = [m("label", "Name")];
+    let noteFields = [m("label", "Notes")];
+    if (hasPermission('post:clusters')) {
+      nameFields.push(
+        m("input[type=text][placeholder=Name]", {
+          id: "name",
+          oninput: function(e) {
+            Cluster.current.name = e.target.value;
+          },
+          value: Cluster.current.name})
+      );
+      noteFields.push(
+        m("textarea[rows=6]", {
+          id: "notes",
+          oninput: function(e) {
+            Cluster.current.notes = e.target.value;
+          },
+          value: Cluster.current.notes})
+      )
+    } else if (hasPermission('patch:clusters')) {
+      nameFields.push(
+        m("input[type=text][placeholder=Name]", {
+          id: "name",
+          readonly: "readonly",
+          value: Cluster.current.name})
+      );
+      noteFields.push(
+        m("textarea[rows=6]", {
+          id: "notes",
+          oninput: function(e) {
+            Cluster.current.notes = e.target.value;
+          },
+          value: Cluster.current.notes})
+      )
+    } else {
+      nameFields.push(
+        m("input[type=text][placeholder=Name]", {
+          id: "name",
+          readonly: "readonly",
+          value: Cluster.current.name})
+      );
+      noteFields.push(
+        m("textarea[rows=6]", {
+          id: "notes",
+          readonly: "readonly",
+          value: Cluster.current.notes})
+      )
+    }
 
-const getFieldset = function(Cluster) {
-  let nameFields = [m("label", "Name")];
-  let noteFields = [m("label", "Notes")];
-  if (hasPermission('post:clusters')) {
-    nameFields.push(
-      m("input[type=text][placeholder=Name]", {
-        id: "name",
-        oninput: function(e) {
-          Cluster.current.name = e.target.value;
-        },
-        value: Cluster.current.name})
-    );
-    noteFields.push(
-      m("textarea[rows=6]", {
-        id: "notes",
-        oninput: function(e) {
-          Cluster.current.notes = e.target.value;
-        },
-        value: Cluster.current.notes})
-    )
-  } else if (hasPermission('patch:clusters')) {
-    nameFields.push(
-      m("input[type=text][placeholder=Name]", {
-        id: "name",
-        readonly: "readonly",
-        value: Cluster.current.name})
-    );
-    noteFields.push(
-      m("textarea[rows=6]", {
-        id: "notes",
-        oninput: function(e) {
-          Cluster.current.notes = e.target.value;
-        },
-        value: Cluster.current.notes})
-    )
-  } else {
-    nameFields.push(
-      m("input[type=text][placeholder=Name]", {
-        id: "name",
-        readonly: "readonly",
-        value: Cluster.current.name})
-    );
-    noteFields.push(
-      m("textarea[rows=6]", {
-        id: "notes",
-        readonly: "readonly",
-        value: Cluster.current.notes})
-    )
-  }
-
-  return m("fieldset", [
-    m("div", {class: "flex"}, nameFields),
-    m("div", {class: "flex"}, noteFields),
-    m("div", {class: "flex"}, getButtons(Cluster)),
-  ]);
-}
-
-
-const getButtons = function(Cluster) {
-  let myButtons = []
-  if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
-    myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));
-  }
-  myButtons.push(
-    m("button.button[type=button]", {
-      class: "small pseudo",
-      onclick: function() {
-        m.route.set("/dashboard");
-      }
-    }, "Cancel")
-  );
-  if (hasPermission('delete:clusters') && Cluster.current.id) {
+    return m("fieldset", [
+      m("div", {class: "flex"}, nameFields),
+      m("div", {class: "flex"}, noteFields),
+      m("div", {class: "flex"}, this.getButtons()),
+    ]);
+  },
+  getButtons: function() {
+    let myButtons = []
+    if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
+      myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));
+    }
     myButtons.push(
       m("button.button[type=button]", {
-        class: "pseudo small",
+        class: "small pseudo",
         onclick: function() {
-          if (window.confirm("Are you sure you want to delete this?")) {
-            return m.request({
-              method: "DELETE",
-              url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id,
-              headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
-            }).then(function(result) {
-                m.route.set("/dashboard");
-            })
-          }
+          m.route.set("/dashboard");
         }
-      }, "Delete")
-    )
+      }, "Cancel")
+    );
+    if (hasPermission('delete:clusters') && Cluster.current.id) {
+      myButtons.push(
+        m("button.button[type=button]", {
+          class: "pseudo small",
+          onclick: function() {
+            if (window.confirm("Are you sure you want to delete this?")) {
+              return m.request({
+                method: "DELETE",
+                url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id,
+                headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
+              }).then(function(result) {
+                  m.route.set("/dashboard");
+              })
+            }
+          }
+        }, "Delete")
+      )
+    }
+    return myButtons;
   }
-  return myButtons;
 }
 
 export {ClusterForm};

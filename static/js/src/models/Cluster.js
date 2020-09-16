@@ -6,13 +6,12 @@ let Cluster = {
   current: {},
 
   loadList: function(jwt=token) {
-    let key = "Authorization";
-    let value = "Bearer " + jwt;
+  
     let opts = {
       method: "GET",
       url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters",
       responseType: "json",
-      headers: {key: value, "Content-Type": "application/json"}
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
     return m.request(opts).then(function(result) {
       Cluster.list = result.clusters;

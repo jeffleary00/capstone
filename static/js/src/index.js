@@ -1,5 +1,6 @@
 import {auth0, token, initClient, decodeToken} from "./auth";
 import {NavBar} from './views/components/NavBar';
+import {WelcomePage} from './views/pages/WelcomePage';
 import {LandingPage} from './views/pages/LandingPage';
 import {DashPage} from './views/pages/DashPage';
 import {ClusterForm} from './views/forms/ClusterForm';
@@ -22,7 +23,8 @@ window.addEventListener('load', async () => {
 
 m.mount(nav, NavBar);
 m.route(root, "/", {
-  "/": LandingPage,
+  "/": WelcomePage,
+  "/login-results": LandingPage,
   "/dashboard": DashPage,
   "/clusters/create": ClusterForm
 })

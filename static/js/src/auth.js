@@ -8,7 +8,7 @@ let permissions = null;
 let environment = {
   domain: 'dev-us1d520w.us.auth0.com',
   client_id: '1XMqKvqO5JYM8GNh1oEl28voSfef8EKa',
-  redirect_uri: 'https://cs-monitor.herokuapp.com#!/dashboard',
+  redirect_uri: 'https://cs-monitor.herokuapp.com#!/login-results',
   audience: 'https://cs-monitor.herokuapp.com'
 }
 

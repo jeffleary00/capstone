@@ -42,7 +42,6 @@ let Cluster = {
       opts.url = "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id
     }
     return m.request(opts).then(function(result) {
-      console.log(obj.extract(result));
       console.log(result.status, result.body);
     })
   }

@@ -1,12 +1,10 @@
 const m = require("mithril")
-import {hasPermission} from "../../auth";
+import {hasPermission, token} from "../../auth";
 import {Cluster} from "../../models/Cluster";
 
 const ClusterForm = {
   oninit: function(vnode) {
     if (vnode.attrs.id) {
-      console.log("vnode:");
-      console.log(vnode.attrs);
       Cluster.load(vnode.attrs.id);
     } else {
       Cluster.current = {"name": "my cluster"};
@@ -17,7 +15,7 @@ const ClusterForm = {
       name: "cluster-form",
       onsubmit: function(event) {
         event.preventDefault();
-        Cluster.save();
+        Cluster.save;
         m.route.set("/dashboard");}
       }, getFieldset()
     );
@@ -105,7 +103,7 @@ const getButtons = function() {
             return m.request({
               method: "DELETE",
               url: "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id,
-              withCredentials: true
+              headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
             }).then(function(result) {
                 m.route.set("/dashboard");
             })

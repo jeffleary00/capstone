@@ -23,31 +23,36 @@ const ClusterForm = {
   },
 
   getFieldset: function() {
-    console.log(Cluster);
     let nameFields = [m("label", "Name")];
     let noteFields = [m("label", "Notes")];
     if (hasPermission('post:clusters')) {
+      console.log("Manager");
+      console.log(Cluster);
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
           id: "name",
+          value: Cluster.current.name,
           oninput: function(e) {
             Cluster.current.name = e.target.value;
-          },
-          value: Cluster.current.name})
+          }
+        })
       );
       noteFields.push(
         m("textarea[rows=8]", {
           id: "notes",
+          value: Cluster.current.notes,
           oninput: function(e) {
             Cluster.current.notes = e.target.value;
           },
-          value: Cluster.current.notes})
+        })
       )
     } else if (hasPermission('patch:clusters')) {
+      console.log("Engineer");
+      console.log(Cluster);
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
           id: "name",
-          readonly: true,
+          // readonly: true,
           value: Cluster.current.name})
       );
       noteFields.push(
@@ -59,16 +64,18 @@ const ClusterForm = {
           value: Cluster.current.notes})
       )
     } else {
+      console.log("Unauthorized");
+      console.log(Cluster);
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
           id: "name",
-          readonly: true,
+          // readonly: true,
           value: Cluster.current.name})
       );
       noteFields.push(
         m("textarea[rows=8]", {
           id: "notes",
-          readonly: true,
+          // readonly: true,
           value: Cluster.current.notes})
       )
     }

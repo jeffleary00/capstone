@@ -26,7 +26,7 @@ window.addEventListener('load', async () => {
   await initClient();
   refreshTokenState();
 });
-window.setInterval(refreshTokenState, 1000);
+window.setInterval(refreshTokenState, 10000);
 
 m.mount(nav, NavBar);
 m.route(root, "/", {

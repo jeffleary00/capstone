@@ -9,17 +9,24 @@ const m = require("mithril");
 const root = document.getElementById("myapp");
 const nav = document.getElementById("mynav");
 
+let refreshTokenState = async function() {
+  if (!token) {
+    try {
+      await auth0.handleRedirectCallback();
+      var t = await auth0.getTokenSilently();
+      decodeToken(t);
+      NavBar.refresh();
+    } catch (err) {
+      // do nothing
+    }
+  }
+}
+
 window.addEventListener('load', async () => {
   await initClient();
-  try {
-    await auth0.handleRedirectCallback();
-    var t = await auth0.getTokenSilently();
-    decodeToken(t);
-    NavBar.refresh();
-  } catch (err) {
-    console.log(err);
-  }
+  refreshTokenState();
 });
+window.setInterval(refreshTokenState, 1000);
 
 m.mount(nav, NavBar);
 m.route(root, "/", {

@@ -12,17 +12,27 @@ const ClusterCard = {
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          prompt("Notes for '" + c.name + "'", c.notes);
-        }}, "notes"),
-      m("span", {
-        class: "button pseudo stack",
-        onclick: function() {
           m.route.set('/clusters/:clusterid/servers', {clusterid: c.id})
         }}, "servers")
     ];
 
     // #TODO: add auth based buttons here
-
+    if (hasPermission('patch:notes')) {
+      myButtons.push(
+        m("span", {
+          class: "button pseudo stack",
+          onclick: function() {
+            prompt("Notes for '" + c.name + "'", c.notes);
+          }}, "notes"),
+      )
+    }
+    if (hasPermission('post:clusters')) {
+      myButtons.push(
+        m("span", {
+          class: "button pseudo stack",
+        }, "edit"),
+      )
+    }
     return m("div", {class: "card"}, [
       m("span", {
         style: "float: right;",

@@ -6,7 +6,7 @@ import {token} from "../../auth";
 const DashPage = {
   oninit: function() {
     Cluster.loadList(token);
-    window.setInterval(Cluster.loadList, 10000);
+    window.setInterval(Cluster.loadList, 60000);
   },
   view: function() {
     var children = [];

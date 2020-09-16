@@ -12,7 +12,7 @@ const ClusterCard = {
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          m.route.set('/clusters/:clusterid/servers', {clusterid: c.id})
+          m.route.set('/clusters/:clusterid/servers', {clusterid: c.id});
         }}, "servers")
     ];
 
@@ -31,7 +31,7 @@ const ClusterCard = {
         m("span", {
           class: "button pseudo stack",
           onclick: function() {
-            m.route.set('/clusters/:clusterid', {clusterid: c.id})
+            m.route.set('/clusters/:clusterid', {clusterid: c.id});
           }
         }, "edit"),
       )

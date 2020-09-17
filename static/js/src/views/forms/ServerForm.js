@@ -128,7 +128,6 @@ const ServerForm = {
   },
 
   getButtons: function() {
-    console.log(Cluster);
     let myButtons = [];
     if (hasPermission('post:servers') || hasPermission('patch:servers')) {
       myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));

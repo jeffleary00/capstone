@@ -4,7 +4,6 @@ import {hasPermission} from "../../auth";
 const ClusterCard = {
   oninit: function(vnode) {
     this.cluster = vnode.attrs.data;
-    console.log(this.cluster);
     this.health = (this.cluster.health === undefined) ? "ok" : this.cluster.health[1];
   },
 
@@ -22,7 +21,7 @@ const ClusterCard = {
       ]),
       m("div", {class: "small"}, "status: " + this.health),
       m("div", {
-        id: "menu-" + c.id,
+        id: "menu-" + this.cluster.id,
         style: "float: right; display: none; border: solid 1px #ccc;"
       }, this.widgetMenu())
     ]);

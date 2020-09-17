@@ -37,6 +37,7 @@ m.route(root, "/", {
   "/dashboard": DashPage,
   "/clusters/create": ClusterForm,
   "/clusters/:id": ClusterForm,
+  "/servers": ServerPage,
   "/servers/create": ServerForm,
   "/servers/:id": ServerForm
 })

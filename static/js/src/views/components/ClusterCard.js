@@ -26,7 +26,7 @@ const ClusterCard = {
           }}, "notes"),
       )
     }
-    if (hasPermission('post:clusters')) {
+    if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
       myButtons.push(
         m("span", {
           class: "button pseudo stack",

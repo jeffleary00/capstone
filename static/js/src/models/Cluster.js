@@ -25,7 +25,7 @@ let Cluster = {
       headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
     return m.request(opts).then(function(result) {
-        Cluster.current = result.clusters;
+        Cluster.current = result.clusters[0];
       })
   },
 

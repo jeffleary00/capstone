@@ -2,6 +2,7 @@ import {auth0, token, initClient, decodeToken} from "./auth";
 import {NavBar} from './views/components/NavBar';
 import {WelcomePage} from './views/pages/WelcomePage';
 import {LandingPage} from './views/pages/LandingPage';
+import {ServerPage} from './views/pages/ServerPage';
 import {DashPage} from './views/pages/DashPage';
 import {ClusterForm} from './views/forms/ClusterForm';
 import {ServerForm} from './views/forms/ServerForm';

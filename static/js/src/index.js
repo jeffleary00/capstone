@@ -4,6 +4,8 @@ import {WelcomePage} from './views/pages/WelcomePage';
 import {LandingPage} from './views/pages/LandingPage';
 import {DashPage} from './views/pages/DashPage';
 import {ClusterForm} from './views/forms/ClusterForm';
+import {ServerForm} from './views/forms/ServerForm';
+
 
 const m = require("mithril");
 const root = document.getElementById("myapp");
@@ -26,7 +28,7 @@ window.addEventListener('load', async () => {
   await initClient();
   refreshTokenState();
 });
-window.setInterval(refreshTokenState, 10000);
+window.setInterval(refreshTokenState, 5000);
 
 m.mount(nav, NavBar);
 m.route(root, "/", {
@@ -34,5 +36,7 @@ m.route(root, "/", {
   "/login-results": LandingPage,
   "/dashboard": DashPage,
   "/clusters/create": ClusterForm,
-  "/clusters/:id": ClusterForm
+  "/clusters/:id": ClusterForm,
+  "/servers/create": ServerForm,
+  "/servers/:id": ServerForm
 })

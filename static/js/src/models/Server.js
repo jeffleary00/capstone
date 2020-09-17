@@ -1,44 +1,50 @@
-var Server = {
+const m = require("mithril");
+import {token} from "../auth";
+
+let Server = {
   list: [],
   current: {},
 
-  loadList: function() {
-      return m.request({
-          method: "GET",
-          url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
-          withCredentials: true,
-      })
-      .then(function(result) {
-          Server.list = result.servers
-      })
-  },
-
-  load: function(id) {
-    return m.request({
-          method: "GET",
-          url: "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + id,
-          withCredentials: true
-      }).then(function(result) {
-        Server.current = result.servers
-      })
-  },
-
-  save: function() {
-    obj = {
-        method: "POST",
-        url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
-        data: Server.current,
-        withCredentials: true,
-        extract: function(xhr) {return {status: xhr.status, body: xhr.responseText}}
+  loadList: function(jwt=token) {
+    let opts = {
+      method: "GET",
+      url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
+      responseType: "json",
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
-
-    if (Server.current.id) {
-      obj.method = "PUT"
-      obj.url = "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + Server.current.id
-    }
-
-    return m.request(obj).then(function(result) {
-      console.log(result.status, result.body)
+    return m.request(opts).then(function(result) {
+      Server.list = result.servers;
     })
   },
+
+  load: function(id, jwt=token) {
+    let opts = {
+      method: "GET",
+      url: "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + id,
+      responseType: "json",
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
+    }
+    return m.request(opts).then(function(result) {
+        Server.current = result.servers[0];
+      })
+  },
+
+  save: function(jwt=token) {
+    let opts = {
+      method: "POST",
+      url: "https://cs-monitor.herokuapp.com/api/v1.0/servers",
+      responseType: "json",
+      body: Server.current,
+      headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
+    }
+    if (Server.current.id) {
+      opts.method = "PATCH"
+      opts.url = "https://cs-monitor.herokuapp.com/api/v1.0/servers/" + Server.current.id
+    }
+    return m.request(opts).then(function(result) {
+      console.log(result.status, result.body);
+    })
+  }
 }
+
+export {Server};

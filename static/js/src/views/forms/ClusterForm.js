@@ -52,7 +52,7 @@ const ClusterForm = {
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
           id: "name",
-          // readonly: true,
+          readonly: true,
           value: Cluster.current.name})
       );
       noteFields.push(
@@ -69,13 +69,13 @@ const ClusterForm = {
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
           id: "name",
-          // readonly: true,
+          readonly: true,
           value: Cluster.current.name})
       );
       noteFields.push(
         m("textarea[rows=8]", {
           id: "notes",
-          // readonly: true,
+          readonly: true,
           value: Cluster.current.notes})
       )
     }

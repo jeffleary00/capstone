@@ -46,7 +46,6 @@ const NavBar = {
           style: "display: none;",
           onclick: function() {
             auth0.logout();
-            token = null;
           }}, "Logout"),
         m("button", {
           class: "small",

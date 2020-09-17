@@ -42,7 +42,7 @@ const ClusterCard = {
         class: "button pseudo small",
         onclick: function(e) {
           toggleDisplayState("menu-" + c.id);
-        }}, m("i", {class: "fas fa-bars", style: "padding-right: .25em;"}, "")),
+        }}, m("i", {style: "padding-right: .25em;"}, "[menu]")),
       m("div", [
         m("span", {class: "jewel " + health}, ""),
         m("span", c.name)]),

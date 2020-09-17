@@ -60,7 +60,7 @@ const ClusterCard = {
     }
 
     return m("div", {
-      id: "menu-" + c.id,
+      id: "menu-" + this.cluster.id,
       style: "float: right; display: none; border: solid 1px #ccc;"
     }, menu);
   }

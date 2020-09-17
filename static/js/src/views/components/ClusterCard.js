@@ -8,23 +8,23 @@ const ClusterCard = {
   },
 
   view: function() {
-
-    console.log(this.cluster);
-
+    let self = this;
+    console.log(self);
+    
     return m("div", {class: "card"}, [
       m("span", {
         style: "float: right;",
         class: "button pseudo small",
         onclick: function(e) {
-          toggleDisplayState("menu-" + this.cluster.id);
+          toggleDisplayState("menu-" + self.cluster.id);
         }}, "menu"),
       m("div", [
-        m("span", {class: "jewel " + this.health}, ""),
-        m("span", this.cluster.name)
+        m("span", {class: "jewel " + self.health}, ""),
+        m("span", self.cluster.name)
       ]),
-      m("div", {class: "small"}, "status: " + this.health),
+      m("div", {class: "small"}, "status: " + self.health),
       m("div", {
-        id: "menu-" + this.cluster.id,
+        id: "menu-" + self.cluster.id,
         style: "float: right; display: none; border: solid 1px #ccc;"
       }, this.widgetMenu())
     ]);

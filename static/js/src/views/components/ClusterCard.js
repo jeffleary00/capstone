@@ -8,13 +8,16 @@ const ClusterCard = {
   },
 
   view: function() {
+
+    console.log(this.cluster);
+
     return m("div", {class: "card"}, [
       m("span", {
         style: "float: right;",
         class: "button pseudo small",
         onclick: function(e) {
           toggleDisplayState("menu-" + this.cluster.id);
-        }}, "&#9776;"),
+        }}, "menu"),
       m("div", [
         m("span", {class: "jewel " + this.health}, ""),
         m("span", this.cluster.name)

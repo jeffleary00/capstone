@@ -38,7 +38,7 @@ let Cluster = {
       headers: {"Authorization": "Bearer " + jwt, "Content-Type": "application/json"}
     }
     if (Cluster.current.id) {
-      opts.method = "PUT"
+      opts.method = "PATCH"
       opts.url = "https://cs-monitor.herokuapp.com/api/v1.0/clusters/" + Cluster.current.id
     }
     return m.request(opts).then(function(result) {

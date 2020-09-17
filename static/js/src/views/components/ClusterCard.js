@@ -2,55 +2,67 @@ const m = require("mithril");
 import {hasPermission} from "../../auth";
 
 const ClusterCard = {
-  view: function(vnode) {
-    var c = vnode.attrs.data;
-    var health = (c.health === undefined) ? "ok" : c.health[1];
-    var count = (c.servers === undefined) ? 0 : c.servers.length;
+  oninit: function(vnode) {
+    this.cluster = vnode.attrs.data;
+    this.health = (this.cluster.health === undefined) ? "ok" : this.cluster.health[1];
+  },
 
-    // build the buttons available in menu
-    var myButtons = [
-      m("span", {
-        class: "button pseudo stack",
-        onclick: function() {
-          m.route.set('/servers', {cluster: c.id});
-        }}, "servers")
-    ];
-
-    // #TODO: add auth based buttons here
-    if (hasPermission('patch:clusters')) {
-      myButtons.push(
-        m("span", {
-          class: "button pseudo stack",
-          onclick: function() {
-            prompt("Notes for '" + c.name + "'", c.notes);
-          }}, "notes"),
-      )
-    }
-    if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
-      myButtons.push(
-        m("span", {
-          class: "button pseudo stack",
-          onclick: function() {
-            m.route.set('/clusters/:clusterid', {clusterid: c.id});
-          }
-        }, "edit"),
-      )
-    }
+  view: function() {
     return m("div", {class: "card"}, [
       m("span", {
         style: "float: right;",
         class: "button pseudo small",
         onclick: function(e) {
-          toggleDisplayState("menu-" + c.id);
-        }}, "[menu]"),
+          toggleDisplayState("menu-" + this.cluster.id);
+        }}, "&#9776;"),
       m("div", [
-        m("span", {class: "jewel " + health}, ""),
-        m("span", c.name)]),
+        m("span", {class: "jewel " + this.health}, ""),
+        m("span", this.cluster.name)
+      ]),
+      m("div", {class: small}, "status: " + this.health),
       m("div", {
         id: "menu-" + c.id,
         style: "float: right; display: none; border: solid 1px #ccc;"
-      }, myButtons)
+      }, this.widgetMenu())
     ]);
+  },
+
+  widgetMenu: function() {
+    let menu = [];
+
+    // servers view button always visible
+    menu.push(
+      m("span", {
+        class: "button pseudo stack",
+        onclick: function() {
+          m.route.set('/servers', {cluster: this.cluster.id});
+        }}, "Servers")
+    );
+
+    // Notes button always visible
+    menu.push(
+      m("span", {
+        class: "button pseudo stack",
+        onclick: function() {
+          prompt("Notes for '" + this.cluster.name + "'", this.cluster.notes);
+        }}, "Notes")
+    );
+
+    if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
+      menu.push(
+        m("span", {
+          class: "button pseudo stack",
+          onclick: function() {
+            m.route.set('/clusters/:clusterid', {clusterid: this.cluster.id});
+          }
+        }, "Edit"),
+      )
+    }
+
+    return m("div", {
+      id: "menu-" + c.id,
+      style: "float: right; display: none; border: solid 1px #ccc;"
+    }, menu);
   }
 }
 

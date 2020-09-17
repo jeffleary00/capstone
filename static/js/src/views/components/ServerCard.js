@@ -1,37 +1,26 @@
 const m = require("mithril");
 import {hasPermission} from "../../auth";
 
-const ClusterCard = {
+const ServerCard = {
   view: function(vnode) {
     var c = vnode.attrs.data;
     var health = (c.health === undefined) ? "ok" : c.health[1];
-    var count = (c.servers === undefined) ? 0 : c.servers.length;
 
     // build the buttons available in menu
     var myButtons = [
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          m.route.set('/clusters/:clusterid/servers', {clusterid: c.id});
-        }}, "servers")
+          prompt("Notes for '" + c.name + "'", c.notes);
+        }}, "notes")
     ];
 
-    // #TODO: add auth based buttons here
-    if (hasPermission('patch:clusters')) {
+    if (hasPermission('post:servers') || hasPermission('patch:servers')) {
       myButtons.push(
         m("span", {
           class: "button pseudo stack",
           onclick: function() {
-            prompt("Notes for '" + c.name + "'", c.notes);
-          }}, "notes"),
-      )
-    }
-    if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
-      myButtons.push(
-        m("span", {
-          class: "button pseudo stack",
-          onclick: function() {
-            m.route.set('/clusters/:clusterid', {clusterid: c.id});
+            m.route.set('/servers/:serverid', {serverid: c.id});
           }
         }, "edit"),
       )
@@ -68,4 +57,4 @@ function toggleDisplayState(elementId) {
   }
 }
 
-export {ClusterCard};
+export {ServerCard};

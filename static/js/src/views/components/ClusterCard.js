@@ -19,7 +19,7 @@ const ClusterCard = {
         m("span", {class: "jewel " + this.health}, ""),
         m("span", this.cluster.name)
       ]),
-      m("div", {class: small}, "status: " + this.health),
+      m("div", {class: "small"}, "status: " + this.health),
       m("div", {
         id: "menu-" + c.id,
         style: "float: right; display: none; border: solid 1px #ccc;"

@@ -5,6 +5,9 @@ import {ServerCard} from "../components/ServerCard";
 
 const ServerPage = {
   oninit: function(vnode) {
+    console.log("vnode");
+    console.log(vnode);
+    
     if (vnode.attrs.cluster) {
       Cluster.load(Number(vnode.attrs.cluster));
       Server.list = Cluster.list;

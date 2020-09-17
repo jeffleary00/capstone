@@ -4,6 +4,7 @@ import {hasPermission} from "../../auth";
 const ClusterCard = {
   oninit: function(vnode) {
     this.cluster = vnode.attrs.data;
+    console.log(this.cluster);
     this.health = (this.cluster.health === undefined) ? "ok" : this.cluster.health[1];
   },
 

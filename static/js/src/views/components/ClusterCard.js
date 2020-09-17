@@ -21,10 +21,7 @@ const ClusterCard = {
         m("span", self.cluster.name)
       ]),
       m("div", {class: "small"}, "status: " + self.health),
-      m("div", {
-        id: "menu-" + self.cluster.id,
-        style: "float: right; display: none; border: solid 1px #ccc;"
-      }, self.widgetMenu())
+      self.widgetMenu()
     ]);
   },
 

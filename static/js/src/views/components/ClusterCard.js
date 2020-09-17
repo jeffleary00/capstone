@@ -17,7 +17,7 @@ const ClusterCard = {
     ];
 
     // #TODO: add auth based buttons here
-    if (hasPermission('patch:notes')) {
+    if (hasPermission('patch:clusters')) {
       myButtons.push(
         m("span", {
           class: "button pseudo stack",

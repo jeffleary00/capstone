@@ -1,12 +1,12 @@
 const m = require("mithril");
 import {Cluster} from "../../models/Cluster";
 import {ClusterCard} from "../components/ClusterCard";
-import {token} from "../../auth";
+// import {token} from "../../auth";
 
 const DashPage = {
   oninit: function() {
-    Cluster.loadList(token);
-    window.setInterval(Cluster.loadList, 60000);
+    Cluster.loadList();
+    // window.setInterval(Cluster.loadList, 60000);
   },
   view: function() {
     var children = [];
@@ -20,7 +20,6 @@ const DashPage = {
       }
       children.push(m("div", {class: "flex one two-600"}, widgets));
     }
-
     return children;
   }
 }

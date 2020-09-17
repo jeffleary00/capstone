@@ -9,8 +9,6 @@ const ClusterCard = {
 
   view: function() {
     let self = this;
-    console.log(self);
-    
     return m("div", {class: "card"}, [
       m("span", {
         style: "float: right;",
@@ -26,11 +24,12 @@ const ClusterCard = {
       m("div", {
         id: "menu-" + self.cluster.id,
         style: "float: right; display: none; border: solid 1px #ccc;"
-      }, this.widgetMenu())
+      }, self.widgetMenu())
     ]);
   },
 
   widgetMenu: function() {
+    let self = this;
     let menu = [];
 
     // servers view button always visible
@@ -38,7 +37,7 @@ const ClusterCard = {
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          m.route.set('/servers', {cluster: this.cluster.id});
+          m.route.set('/servers', {cluster: self.cluster.id});
         }}, "Servers")
     );
 
@@ -47,7 +46,7 @@ const ClusterCard = {
       m("span", {
         class: "button pseudo stack",
         onclick: function() {
-          prompt("Notes for '" + this.cluster.name + "'", this.cluster.notes);
+          prompt("Notes for '" + self.cluster.name + "'", self.cluster.notes);
         }}, "Notes")
     );
 
@@ -56,14 +55,14 @@ const ClusterCard = {
         m("span", {
           class: "button pseudo stack",
           onclick: function() {
-            m.route.set('/clusters/:clusterid', {clusterid: this.cluster.id});
+            m.route.set('/clusters/:clusterid', {clusterid: self.cluster.id});
           }
         }, "Edit"),
       )
     }
 
     return m("div", {
-      id: "menu-" + this.cluster.id,
+      id: "menu-" + self.cluster.id,
       style: "float: right; display: none; border: solid 1px #ccc;"
     }, menu);
   }

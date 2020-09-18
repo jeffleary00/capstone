@@ -1,5 +1,5 @@
-const m = require("mithril");
 import {hasPermission} from "../../auth";
+const m = require("mithril");
 
 const ClusterCard = {
   oninit: function(vnode) {
@@ -32,16 +32,16 @@ const ClusterCard = {
     // servers view button always visible
     menu.push(
       m("span", {
-        class: "button pseudo stack",
+        class: "button pseudo small stack",
         onclick: function() {
-          m.route.set('/servers');
+          m.route.set('/servers', {clusterid: self.cluster.id});
         }}, "Servers")
     );
 
     // Notes button always visible
     menu.push(
       m("span", {
-        class: "button pseudo stack",
+        class: "button pseudo small stack",
         onclick: function() {
           prompt("Notes for '" + self.cluster.name + "'", self.cluster.notes);
         }}, "Notes")
@@ -50,7 +50,7 @@ const ClusterCard = {
     if (hasPermission('post:clusters') || hasPermission('patch:clusters')) {
       menu.push(
         m("span", {
-          class: "button pseudo stack",
+          class: "button pseudo small stack",
           onclick: function() {
             m.route.set('/clusters/:clusterid', {clusterid: self.cluster.id});
           }

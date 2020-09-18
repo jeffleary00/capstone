@@ -1,6 +1,7 @@
 import {hasPermission, token} from "../../auth";
 import {Server} from "../../models/Server";
 import {Cluster} from "../../models/Cluster";
+import {ClusterSelect} from "../components/ClusterSelect";
 const m = require("mithril");
 
 const ServerForm = {
@@ -9,18 +10,19 @@ const ServerForm = {
     if (vnode.attrs.id) {
       Server.load(vnode.attrs.id);
     } else {
-      Server.current = {"name": "my server"};
+      Server.current = {"name": "my server", "cluster_id": null};
     }
   },
 
   view: function() {
+    let self = this;
     return m("form", {
       name: "server-form",
       onsubmit: function(event) {
         event.preventDefault();
         Server.save();
         m.route.set("/dashboard");}
-      }, this.getFieldset()
+      }, self.getFieldset()
     );
   },
 
@@ -47,21 +49,7 @@ const ServerForm = {
           },
         })
       );
-      clusterFields.push(
-        m("select", {
-            selectedIndex: (Server.current) ? Server.current.cluster_id : 0,
-            onchange: function(e) {
-              Server.current.cluster_id = Number(e.target.value);
-            }
-          }, Cluster.list.map(function(c) {
-            if (Server.current.cluster_id == c.id) {
-              return m("option", {value: c.id, selected: true}, c.name);
-            } else {
-              return m("option", {value: c.id}, c.name);
-            }
-          })
-        )
-      );
+      clusterFields.push(m(ClusterSelect, {target: Server.current}));
     } else if (hasPermission('patch:servers')) {
       nameFields.push(
         m("input[type=text][placeholder=Name]", {
@@ -77,19 +65,7 @@ const ServerForm = {
           },
           value: Server.current.notes})
       );
-      clusterFields.push(
-        m("select", {
-            selectedIndex: (Server.current) ? Server.current.cluster_id : 0,
-            readonly: true
-          }, Cluster.list.map(function(c) {
-            if (Server.current.cluster_id == c.id) {
-              return m("option", {value: c.id, selected: true}, c.name);
-            } else {
-              return m("option", {value: c.id}, c.name);
-            }
-          })
-        )
-      );
+      clusterFields.push(m(ClusterSelect, {target: Server.current}));
 
     } else {
       nameFields.push(
@@ -104,19 +80,7 @@ const ServerForm = {
           // readonly: true,
           value: Server.current.notes})
       );
-      clusterFields.push(
-        m("select", {
-            selectedIndex: (Server.current) ? Server.current.cluster_id : 0,
-            readonly: true
-          }, Cluster.list.map(function(c) {
-            if (Server.current.cluster_id == c.id) {
-              return m("option", {value: c.id, selected: true}, c.name);
-            } else {
-              return m("option", {value: c.id}, c.name);
-            }
-          })
-        )
-      );
+      clusterFields.push(m(ClusterSelect, {target: Server.current}));
     }
 
     return m("fieldset", [
@@ -128,6 +92,7 @@ const ServerForm = {
   },
 
   getButtons: function() {
+    console.log(Cluster);
     let myButtons = [];
     if (hasPermission('post:servers') || hasPermission('patch:servers')) {
       myButtons.push(m("button.button[type=submit]", {class: "small"}, "Save"));

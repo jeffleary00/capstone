@@ -29,15 +29,16 @@ window.addEventListener('load', async () => {
   await initClient();
   refreshTokenState();
 });
+window.setInterval(refreshTokenState, 1000);
 
 m.mount(nav, NavBar);
 m.route(root, "/", {
   "/": WelcomePage,
   "/login-results": LandingPage,
-  // "/dashboard": DashPage,
-  // "/clusters/create": ClusterForm,
-  // "/clusters/:id": ClusterForm,
-  // "/servers": ServerPage,
-  // "/servers/create": ServerForm,
-  // "/servers/:id": ServerForm
+//  "/dashboard": DashPage,
+//  "/clusters/create": ClusterForm,
+//  "/clusters/:id": ClusterForm,
+//  "/servers": ServerPage,
+//  "/servers/create": ServerForm,
+//  "/servers/:id": ServerForm
 })

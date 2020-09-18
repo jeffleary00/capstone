@@ -2,6 +2,17 @@ const m = require("mithril");
 import {auth0, token, hasPermission} from "../../auth.js";
 
 const NavBar = {
+  refresh: function() {
+    if (token) {
+      document.getElementById("loginButton").style.display="none";
+      document.getElementById("logoutButton").style.display="inline";
+      document.getElementById("tokenButton").style.display="inline";
+    } else {
+      document.getElementById("loginButton").style.display="inline";
+      document.getElementById("logoutButton").style.display="none";
+      document.getElementById("tokenButton").style.display="none";
+    }
+  },
   view: function() {
     let elements = [
       m(m.route.Link, {

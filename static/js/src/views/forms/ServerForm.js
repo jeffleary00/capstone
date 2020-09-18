@@ -51,7 +51,7 @@ const ServerForm = {
           },
         })
       );
-      clusterFields.push(m(ClusterSelect, {target: Server.current}));
+      clusterFields.push(m(ClusterSelect, {target: Server}));
     } else if (hasPermission('patch:servers')) {
       nameFields.push(
         m("input[type=text][placeholder=Name]", {

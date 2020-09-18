@@ -4,13 +4,16 @@ const m = require("mithril");
 
 const ClusterSelect = {
   oninit: function(vnode) {
+    console.log("Initializing ClusterSelect");
     let self = this;
     self.target = vnode.attrs.target;
     Cluster.loadList();
-
     if (! self.target.clusterid) {
       self.target.cluster_id = Cluster.list[0].id;
     }
+    
+    console.log("Target:");
+    console.log(self.target);
 
     Cluster.list.forEach(function(value, index, array) {
       if (value.id == self.clusterId) {

@@ -21,6 +21,8 @@ const ServerForm = {
       onsubmit: function(event) {
         event.preventDefault();
         Server.save();
+        console.log("Saved server");
+        console.log(Server.current);
         m.route.set("/dashboard");}
       }, self.getFieldset()
     );

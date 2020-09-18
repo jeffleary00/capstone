@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "manager-role",
+			"name": "manager-role tests",
 			"item": [
 				{
 					"name": "clusters",
@@ -202,14 +202,19 @@
 							"response": []
 						},
 						{
-							"name": "post again",
+							"name": "post again, to ensure server tests can pass. see Description for more details",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"id": "3924eeff-ace9-4630-8bc3-42c3538bcd34",
 										"exec": [
-											""
+											"pm.test(\"cluster post test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"    var j = pm.response.json();",
+											"    pm.expect(j.clusters[0].name).to.eql(\"test cluster\");",
+											"    pm.environment.set(\"test_cluster_id\", j.clusters[0].id);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -237,14 +242,12 @@
 										"v1.0",
 										"clusters"
 									]
-								}
+								},
+								"description": "The server tests follow the cluster tests, and this last request is only here so that there is a TEST cluster to assign TEST servers to.\n\nIn the cleanup section, all test nodes will be removed."
 							},
 							"response": []
 						}
 					],
-					"auth": {
-						"type": "bearer"
-					},
 					"event": [
 						{
 							"listen": "prerequest",
@@ -430,6 +433,20 @@
 						},
 						{
 							"name": "delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "eeb9e5ae-cdf5-46dd-9aa2-5c7b636f8160",
+										"exec": [
+											"pm.test(\"clusters delete test\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -456,7 +473,12 @@
 									"script": {
 										"id": "7509f940-3d59-4c6f-86d1-4d5bebac50aa",
 										"exec": [
-											""
+											"pm.test(\"server post test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"    var j = pm.response.json();",
+											"    pm.expect(j.servers[0].name).to.eql(\"www-1\");",
+											"    pm.environment.set(\"test_server_id\", j.servers[0].id);",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -484,17 +506,48 @@
 										"v1.0",
 										"servers"
 									]
-								}
+								},
+								"description": "post the server again, after deleting it... so that the subsequent server tests for Engineer role will succeed. We cannot test an entity if it does not exist?"
 							},
 							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7702cf81-86c7-4149-9686-8b9664332463",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "04a7a806-f02a-486b-9e67-da352c05d989",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
 			],
+			"description": "The Manager role has permissions to POST, PATCH, GET, DELETE all elements. Clusters and Servers.\n",
 			"auth": {
-				"type": "bearer"
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVTUVVVcHFMYy02RFhnMm9QMmpncCJ9.eyJpc3MiOiJodHRwczovL2Rldi11czFkNTIwdy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1Nzc1ZDhjNjQ3OGIwMDY3ZDk2MDY0IiwiYXVkIjpbImh0dHBzOi8vY3MtbW9uaXRvci5oZXJva3VhcHAuY29tIiwiaHR0cHM6Ly9kZXYtdXMxZDUyMHcudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYwMDQ1MzgwOSwiZXhwIjoxNjAwNTQwMjA5LCJhenAiOiIxWE1xS3ZxTzVKWU04R05oMW9FbDI4dm9TZmVmOEVLYSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6Y2x1c3RlcnMiLCJkZWxldGU6c2VydmVycyIsImdldDpjbHVzdGVycyIsImdldDpzZXJ2ZXJzIiwicGF0Y2g6Y2x1c3RlcnMiLCJwYXRjaDpzZXJ2ZXJzIiwicG9zdDpjbHVzdGVycyIsInBvc3Q6c2VydmVycyJdfQ.tIlpNhD74L8jlH06wkS15FgNEHnuYn947GO9d5cCKep8wAeNqMKrpK2qcMWEsY02WO2lZTuLTgquBx7HgIS95_duA8axJJcf6iuXcT4Nn24GTCPbTuJWFLIuvGzOU1nNZW09KD52O2tuLnww6J1TctjYiuOcuBdWj7DYjUAVsI5t38onCDlmADRkfl4Lna0jg5PnKh3ykGVZapQNM3Qqrv7J5JThQ6Vmj_I67uTTAXX5FW9yFpdF6nKNLf9hQ9XlkIQtU1FVGgGWz7WRizyBvwpiIfzlKzZPvRv6WQaBX57lWyBDB_XaYXWPY7Cb0kWz8_gRc8tzbLQbbbSp4HdEbA",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
@@ -521,7 +574,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "engineer-role",
+			"name": "engineer-role tests",
 			"item": [
 				{
 					"name": "clusters",
@@ -535,7 +588,7 @@
 										"id": "b175ef16-56ca-434d-afd5-21be43ae4c2c",
 										"exec": [
 											"pm.test(\"cluster post test\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);",
 											"});"
 										],
 										"type": "text/javascript"
@@ -687,7 +740,7 @@
 										"id": "e8913763-8c94-4344-9526-72f61642ab05",
 										"exec": [
 											"pm.test(\"clusters delete test\", function () {",
-											"    pm.response.to.have.status(200);",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);",
 											"});"
 										],
 										"type": "text/javascript"
@@ -713,9 +766,6 @@
 							"response": []
 						}
 					],
-					"auth": {
-						"type": "bearer"
-					},
 					"event": [
 						{
 							"listen": "prerequest",
@@ -753,10 +803,7 @@
 										"id": "4f85099e-81f1-45c2-941b-b152487e3d7a",
 										"exec": [
 											"pm.test(\"server post test\", function () {",
-											"    pm.response.to.have.status(200);",
-											"    var j = pm.response.json();",
-											"    pm.expect(j.servers[0].name).to.eql(\"www-1\");",
-											"    pm.environment.set(\"test_server_id\", j.servers[0].id);",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);",
 											"});"
 										],
 										"type": "text/javascript"
@@ -901,6 +948,20 @@
 						},
 						{
 							"name": "delete",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5cb8b4e8-1fdc-449b-af85-4b3e5bf9aa63",
+										"exec": [
+											"pm.test(\"servers delete test\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([401]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -920,12 +981,42 @@
 							"response": []
 						}
 					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "7a4ee8a7-4a93-4b0a-af81-7a2abf825c23",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "9dcf1b9d-f251-43c5-9a8f-57868880ece5",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				}
 			],
+			"description": "The Engineer role has permissions to GET and PATCH Cluster and Server data.\nThis role may not DELETE entities or POST new entities.",
 			"auth": {
-				"type": "bearer"
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVTUVVVcHFMYy02RFhnMm9QMmpncCJ9.eyJpc3MiOiJodHRwczovL2Rldi11czFkNTIwdy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1Nzc1YWUxNDYxNjEwMDZkMjY0NTc0IiwiYXVkIjpbImh0dHBzOi8vY3MtbW9uaXRvci5oZXJva3VhcHAuY29tIiwiaHR0cHM6Ly9kZXYtdXMxZDUyMHcudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYwMDQ1Mzg0OSwiZXhwIjoxNjAwNTQwMjQ5LCJhenAiOiIxWE1xS3ZxTzVKWU04R05oMW9FbDI4dm9TZmVmOEVLYSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6Y2x1c3RlcnMiLCJnZXQ6c2VydmVycyIsInBhdGNoOmNsdXN0ZXJzIiwicGF0Y2g6c2VydmVycyJdfQ.hoWMFFgJgeUpBgVfGjBXwzZz6Ki4_grM90WAFYIuGwXzHqZ3BoA9C_sqHscn8tE6dOlpcK5xnuiEB7cegHWDj-K-cYOewPoaytfPkRvK4veadWDlgLuSo4kZ56KAO599ztkXPo25SEJN_foDL6hY-nIWvdBedEjjrRy4Aim-y3m_PE2mRTk4_Nz5_SbKPA7d9okZvuvBOBmY1xwpSiJi1PmzE3jcb4U7uKEDfyxXTuy5yo-NwnB_0PalvrXNw6j8XhC8CspqUBvvMreZV9LS7gsMErxku84CiIlsSOMItseeqQyFIWJ7ItQcdex1JQWQltUoQ0Hgn9gcYOeYd_Mw8g",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
@@ -984,7 +1075,8 @@
 								"clusters",
 								"{{test_cluster_id}}"
 							]
-						}
+						},
+						"description": "Deleting the test cluster will also force child relationships to be deleted also"
 					},
 					"response": []
 				},
@@ -994,10 +1086,10 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "62350ccb-95de-400b-bdf5-30cf01d7d1f4",
+								"id": "40017b5d-2d93-4ca9-ad47-21339bb00491",
 								"exec": [
-									"pm.test(\"servers delete test\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"clusters delete test\", function () {",
+									"    pm.response.to.have.status(404);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1018,13 +1110,21 @@
 								"servers",
 								"{{test_server_id}}"
 							]
-						}
+						},
+						"description": "Deleting the test cluster in the previous step will also force child relationships to be deleted.\nSo, there should not be a test server remaining in database, and this command should fail with a 404\n"
 					},
 					"response": []
 				}
 			],
 			"auth": {
-				"type": "bearer"
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InVTUVVVcHFMYy02RFhnMm9QMmpncCJ9.eyJpc3MiOiJodHRwczovL2Rldi11czFkNTIwdy51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWY1Nzc1ZDhjNjQ3OGIwMDY3ZDk2MDY0IiwiYXVkIjpbImh0dHBzOi8vY3MtbW9uaXRvci5oZXJva3VhcHAuY29tIiwiaHR0cHM6Ly9kZXYtdXMxZDUyMHcudXMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYwMDQ1MzgwOSwiZXhwIjoxNjAwNTQwMjA5LCJhenAiOiIxWE1xS3ZxTzVKWU04R05oMW9FbDI4dm9TZmVmOEVLYSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6Y2x1c3RlcnMiLCJkZWxldGU6c2VydmVycyIsImdldDpjbHVzdGVycyIsImdldDpzZXJ2ZXJzIiwicGF0Y2g6Y2x1c3RlcnMiLCJwYXRjaDpzZXJ2ZXJzIiwicG9zdDpjbHVzdGVycyIsInBvc3Q6c2VydmVycyJdfQ.tIlpNhD74L8jlH06wkS15FgNEHnuYn947GO9d5cCKep8wAeNqMKrpK2qcMWEsY02WO2lZTuLTgquBx7HgIS95_duA8axJJcf6iuXcT4Nn24GTCPbTuJWFLIuvGzOU1nNZW09KD52O2tuLnww6J1TctjYiuOcuBdWj7DYjUAVsI5t38onCDlmADRkfl4Lna0jg5PnKh3ykGVZapQNM3Qqrv7J5JThQ6Vmj_I67uTTAXX5FW9yFpdF6nKNLf9hQ9XlkIQtU1FVGgGWz7WRizyBvwpiIfzlKzZPvRv6WQaBX57lWyBDB_XaYXWPY7Cb0kWz8_gRc8tzbLQbbbSp4HdEbA",
+						"type": "string"
+					}
+				]
 			},
 			"event": [
 				{
@@ -1049,6 +1149,45 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2c526163-e707-4400-8855-f0b574ae7826",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "82454616-8ad3-4b36-9fc3-2666eb5a5ac3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c90c52ec-8d9f-4721-90a5-f5839135bd89",
+			"key": "server_url",
+			"value": "https://cs-monitor.herokuapp.com"
+		},
+		{
+			"id": "4f0ea529-0342-4b92-a85f-dc4b06d6175a",
+			"key": "test_cluster_id",
+			"value": ""
+		},
+		{
+			"id": "677a2897-4a3f-404e-9b20-549361151649",
+			"key": "test_server_id",
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}

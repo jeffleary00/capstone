@@ -14,9 +14,9 @@ If a server has a minor or major fault, that error propagates up to the cluster
 and its health is reflected accordingly.
 
 Healths reported are as follows:
- - OK - healthy, green
- - MINOR - minor problems, orange
- - MAJOR - major problems, red
+ - OK: healthy, green
+ - MINOR: minor problems, orange
+ - MAJOR: major problems, red
 
 ## Requirements
  - Python 3.6+
@@ -53,6 +53,7 @@ Each time you query the info, you may get different health states.
 
 ## Tests
 The Postman profile for all API tests is found in the file *cs-mon-api.postman_collection.json* in this repository.
+Also, there is a custom Postman Environment for these tests as well, called *cs-mon-api.postman_environment.json*. Please import this environment as well, so that test variables can be stored correctly and tests will pass seamlessly.
 
 ### Test Users
 There are two users built for testing purposes:

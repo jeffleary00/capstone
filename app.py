@@ -273,7 +273,7 @@ def e_unprocessable(error):
     return jsonify({
         "success": False,
         "error": 422,
-        "message": "unprocessable"
+        "message": "unprocessable request"
     }), 422
 
 @app.errorhandler(404)
@@ -283,6 +283,22 @@ def e_notfound(error):
         "error": 404,
         "message": "not found"
     }), 404
+
+@app.errorhandler(403)
+def e_forbidden(error):
+    return jsonify({
+        "success": False,
+        "error": 403,
+        "message": "action forbidden"
+    }), 403
+
+@app.errorhandler(401)
+def e_unauthorized(error):
+    return jsonify({
+        "success": False,
+        "error": 401,
+        "message": "unauthorized"
+    }), 401
 
 @app.errorhandler(AuthError)
 def handle_auth_err(err):

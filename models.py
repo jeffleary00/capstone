@@ -32,7 +32,7 @@ class Cluster(db.Model):
     # relationships
     servers = relationship('Server',
         backref='cluster',
-        lazy=True, cascade='all')
+        lazy=True, cascade='all,delete')
 
     def insert(self):
         db.session.add(self)

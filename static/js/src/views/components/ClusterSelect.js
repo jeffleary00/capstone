@@ -25,6 +25,8 @@ const ClusterSelect = {
       selectedIndex: self.selectedIndex,
       onchange: function(e) {
         self.target.cluster_id = Number(e.target.value);
+        console.log("Changed to id " + e.target.value);
+        console.log(self.target);
       }
     }, self.getOptions());
   },

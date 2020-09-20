@@ -56,11 +56,34 @@ $> source venv/bin/activate
 (venv)$> pip3 install -e .
 ```
 
+### Set up database connection ENV variable
+The env variable DATABASE_URL dictates how SQLAlchemy connects its models to a database.
+
+By default, the application will use an SQLite in-memory database.
+This is fine for initial tryout/testing, but not sufficient for most other purposes.
+
+For a bare minimum, file-based SQLite install, set the environment variable something like:
+```
+$> export DATABASE_URL="sqlite:////tmp/csmonitor.db"
+```
+
+For a more robust, Postgresql based install, set the environment something like:
+```
+$> export DATABASE_URL="postgresql+psycopg2://${POSTGRES_USERNAME}:${POSTGRES_PASSWD}@${POSTGRES_ADDRESS}/${POSTGRES_DATABASE}"
+```
+
+### Initialize the database
+```
+(venv)$> python3 manage.py db init
+(venv)$> python3 manage.py db migrate
+(venv)$> python3 manage.py db upgrade
+```
+
 ### Update configurations for your new environment.
 The following files and variables should be edited, to reflect your Auth0 settings.
-- setup.sh (AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
-- auth.py (AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
-- static/js/src/auth.js (environment.domain: environment.client_id, environment.redirect_uri, environment.audience)
+- setup.sh (vaiables = AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
+- auth.py (variables = AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
+- static/js/src/auth.js (variables = environment.domain: environment.client_id, environment.redirect_uri, environment.audience)
 
 ### Starting the test server
 ```
@@ -107,7 +130,7 @@ $> curl -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -X
 ```
 
 ## Testing with Postman
-### Importing Postman Configs.
+### Importing Postman configs.
 There is a custom Postman Environment file for these tests, called *cs-mon-api.postman_environment.json*. Please import this environment file into Postman. This ensures that test variables can be stored correctly and tests will pass seamlessly.
 
 The Postman Collection for all API tests is found in the file *cs-mon-api.postman_collection.json* in this repository. Import this file into Postman.

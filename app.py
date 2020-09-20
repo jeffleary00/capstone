@@ -2,8 +2,6 @@
 Part of the Capstone-Monitor project for Udacity FSND final project
 """
 
-import os
-import json
 from flask import Flask, jsonify, request, abort, render_template
 from flask_cors import CORS
 from models import setup_db, Server, Cluster
@@ -63,8 +61,8 @@ def clusters_post():
         return jsonify({
             'success': True,
             'clusters': [cluster.as_dict()]}), 200
-    except Exception as x:
-        abort(422, str(x))
+    except Exception as err:
+        abort(422, str(err))
 
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['GET'])
@@ -118,8 +116,8 @@ def clusters_edit(id):
         return jsonify({
             'success': True,
             'clusters': [cluster.as_dict()]}), 200
-    except Exception as x:
-        abort(422, str(x))
+    except Exception as err:
+        abort(422, str(err))
 
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['DELETE'])
@@ -140,8 +138,8 @@ def clusters_delete(id):
         return jsonify({
             'success': True,
             'delete': id}), 200
-    except Exception as x:
-        abort(404, str(x))
+    except Exception as err:
+        abort(404, str(err))
 
 
 # SERVER ROUTES
@@ -193,8 +191,8 @@ def servers_post():
         return jsonify({
             'success': True,
             'servers': [server.as_dict()]}), 200
-    except Exception as x:
-        abort(422, str(x))
+    except Exception as err:
+        abort(422, str(err))
 
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['GET'])
@@ -248,8 +246,8 @@ def servers_edit(id):
         return jsonify({
             'success': True,
             'servers': [server.as_dict()]}), 200
-    except Exception as x:
-        abort(422, str(x))
+    except Exception as err:
+        abort(422, str(err))
 
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['DELETE'])
@@ -270,18 +268,24 @@ def servers_delete(id):
         return jsonify({
             'success': True,
             'delete': id}), 200
-    except Exception as x:
-        abort(404, str(x))
+    except Exception as err:
+        abort(404, str(err))
 
 
 @app.route("/", methods=['GET'])
 def main_page():
+    """
+    render html page
+    """
     return render_template("index.html")
 
 
 # --- error handlers --- #
 @app.errorhandler(422)
 def e_unprocessable(error):
+    """
+    handle return formatting of 422 errors
+    """
     return jsonify({
         "success": False,
         "error": 422,
@@ -291,6 +295,9 @@ def e_unprocessable(error):
 
 @app.errorhandler(404)
 def e_notfound(error):
+    """
+    handle return formatting of 404 errors
+    """
     return jsonify({
         "success": False,
         "error": 404,
@@ -300,6 +307,9 @@ def e_notfound(error):
 
 @app.errorhandler(403)
 def e_forbidden(error):
+    """
+    handle return formatting of 403 errors
+    """
     return jsonify({
         "success": False,
         "error": 403,
@@ -309,6 +319,9 @@ def e_forbidden(error):
 
 @app.errorhandler(401)
 def e_unauthorized(error):
+    """
+    handle return formatting of 401 errors
+    """
     return jsonify({
         "success": False,
         "error": 401,

@@ -1,3 +1,8 @@
+"""
+Part of the Capstone-Monitor project for Udacity FSND final project.
+Defines all class models with sqlalchemy database backend.
+"""
+
 import os
 import json
 import datetime
@@ -37,17 +42,25 @@ class Cluster(db.Model):
                            lazy=True, cascade='all,delete')
 
     def insert(self):
+        """insert self into db"""
+
         db.session.add(self)
         db.session.commit()
 
     def update(self):
+        """update self into db"""
+
         db.session.commit()
 
     def delete(self):
+        """delete self from db"""
+
         db.session.delete(self)
         db.session.commit()
 
     def as_dict(self):
+        """return dict representation of self"""
+
         results = {
             'id': self.id,
             'name': self.name,
@@ -55,10 +68,10 @@ class Cluster(db.Model):
             'health': (0, 'ok'),
             'servers': []}
 
-        for s in self.servers:
-            data = s.as_dict(True)
+        for server in self.servers:
+            data = server.as_dict(True)
             results['servers'].append(data)
-            if s.is_active:
+            if server.is_active:
                 # cascade health from active servers only
                 if data['health'][0] > results['health'][0]:
                     results['health'] = data['health']
@@ -129,4 +142,3 @@ class Server(db.Model):
             self.health = json.dumps(health)
             self.updated = datetime.datetime.utcnow()
             db.session.commit()
-        return

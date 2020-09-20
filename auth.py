@@ -5,11 +5,11 @@ Used for authentication and validation of permission claims from JWT.
 
 import os
 import json
-from flask import request, _request_ctx_stack
-from functools import wraps
-from jose import jwt
-from urllib.request import urlopen
 import ssl
+from functools import wraps
+from urllib.request import urlopen
+from flask import request
+from jose import jwt
 
 AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
 API_AUDIENCE = os.getenv('AUTH0_API_AUDIENCE')
@@ -17,6 +17,10 @@ ALGORITHMS = ['RS256']
 
 
 class AuthError(Exception):
+    """
+    Exception class for any authentication/jwt errors
+    """
+
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
@@ -41,7 +45,8 @@ def get_token_auth_header():
             'code': 'invalid_header',
             'description': 'Authorization header invalid'
         }, 401)
-    elif len(atoms) == 1:
+
+    if len(atoms) == 1:
         raise AuthError({
             'code': 'invalid_header',
             'description': 'Token not found.'
@@ -146,13 +151,13 @@ def requires_auth(permission=''):
         decoded payload
     """
 
-    def requires_auth_decorator(f):
-        @wraps(f)
+    def requires_auth_decorator(myfunc):
+        @wraps(myfunc)
         def wrapper(*args, **kwargs):
             token = get_token_auth_header()
             payload = verify_decode_jwt(token)
             check_permissions(permission, payload)
-            return f(*args, **kwargs)
+            return myfunc(*args, **kwargs)
 
         return wrapper
 

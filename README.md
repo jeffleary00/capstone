@@ -11,7 +11,7 @@ https://cs-monitor.herokuapp.com/
 Servers are assigned to Clusters(aka, Datacenters).
 The health of a Cluster is determined by the health of all it's server children.
 If a server has a minor or major fault, that error propagates up to the cluster
-and its health is reflected accordingly.
+and the clusters health is reflected accordingly.
 
 Healths reported are as follows:
  - OK: healthy, green
@@ -72,7 +72,7 @@ For a more robust, Postgresql based install, set the environment something like:
 $> export DATABASE_URL="postgresql+psycopg2://${POSTGRES_USERNAME}:${POSTGRES_PASSWD}@${POSTGRES_ADDRESS}/${POSTGRES_DATABASE}"
 ```
 
-### Initialize the database
+### Initialize the database and set up models
 ```
 (venv)$> python3 manage.py db init
 (venv)$> python3 manage.py db migrate

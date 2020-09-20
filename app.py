@@ -13,6 +13,7 @@ app = Flask(__name__)
 CORS(app)
 setup_db(app)
 
+
 # CLUSTER ROUTES
 @app.route("/api/v1.0/clusters", methods=['GET'])
 @requires_auth('get:clusters')
@@ -33,6 +34,7 @@ def clusters_get():
     return jsonify({
         'success': True,
         'clusters': [c.as_dict() for c in clusters]}), 200
+
 
 @app.route("/api/v1.0/clusters", methods=['POST'])
 @requires_auth('post:clusters')
@@ -64,6 +66,7 @@ def clusters_post():
     except Exception as x:
         abort(422, str(x))
 
+
 @app.route("/api/v1.0/clusters/<int:id>", methods=['GET'])
 @requires_auth('get:clusters')
 def clusters_get_id(id):
@@ -83,6 +86,7 @@ def clusters_get_id(id):
     return jsonify({
         'success': True,
         'clusters': [cluster.as_dict()]}), 200
+
 
 @app.route("/api/v1.0/clusters/<int:id>", methods=['PATCH'])
 @requires_auth('patch:clusters')
@@ -117,6 +121,7 @@ def clusters_edit(id):
     except Exception as x:
         abort(422, str(x))
 
+
 @app.route("/api/v1.0/clusters/<int:id>", methods=['DELETE'])
 @requires_auth('delete:clusters')
 def clusters_delete(id):
@@ -138,6 +143,7 @@ def clusters_delete(id):
     except Exception as x:
         abort(404, str(x))
 
+
 # SERVER ROUTES
 @app.route("/api/v1.0/servers", methods=['GET'])
 @requires_auth('get:servers')
@@ -158,6 +164,7 @@ def servers_get():
     return jsonify({
         'success': True,
         'servers': [s.as_dict() for s in servers]}), 200
+
 
 @app.route("/api/v1.0/servers", methods=['POST'])
 @requires_auth('post:servers')
@@ -189,6 +196,7 @@ def servers_post():
     except Exception as x:
         abort(422, str(x))
 
+
 @app.route("/api/v1.0/servers/<int:id>", methods=['GET'])
 @requires_auth('get:servers')
 def servers_get_id(id):
@@ -208,6 +216,7 @@ def servers_get_id(id):
     return jsonify({
         'success': True,
         'servers': [server.as_dict()]}), 200
+
 
 @app.route("/api/v1.0/servers/<int:id>", methods=['PATCH'])
 @requires_auth('patch:servers')
@@ -242,6 +251,7 @@ def servers_edit(id):
     except Exception as x:
         abort(422, str(x))
 
+
 @app.route("/api/v1.0/servers/<int:id>", methods=['DELETE'])
 @requires_auth('delete:servers')
 def servers_delete(id):
@@ -263,11 +273,13 @@ def servers_delete(id):
     except Exception as x:
         abort(404, str(x))
 
+
 @app.route("/", methods=['GET'])
 def main_page():
     return render_template("index.html")
 
-## --- error handlers --- ##
+
+# --- error handlers --- #
 @app.errorhandler(422)
 def e_unprocessable(error):
     return jsonify({
@@ -275,6 +287,7 @@ def e_unprocessable(error):
         "error": 422,
         "message": "unprocessable request"
     }), 422
+
 
 @app.errorhandler(404)
 def e_notfound(error):
@@ -284,6 +297,7 @@ def e_notfound(error):
         "message": "not found"
     }), 404
 
+
 @app.errorhandler(403)
 def e_forbidden(error):
     return jsonify({
@@ -292,6 +306,7 @@ def e_forbidden(error):
         "message": "action forbidden"
     }), 403
 
+
 @app.errorhandler(401)
 def e_unauthorized(error):
     return jsonify({
@@ -299,6 +314,7 @@ def e_unauthorized(error):
         "error": 401,
         "message": "unauthorized"
     }), 401
+
 
 @app.errorhandler(AuthError)
 def handle_auth_err(err):
@@ -315,6 +331,7 @@ def handle_auth_err(err):
         "success": False,
         "error": err.status_code,
         "message": err.error}), err.status_code
+
 
 if __name__ == '__main__':
     app.run()

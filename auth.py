@@ -1,3 +1,8 @@
+"""
+Part of the Capstone-Monitor project for Udacity FSND final project.
+Used for authentication and validation of permission claims from JWT.
+"""
+
 import os
 import json
 from flask import request, _request_ctx_stack
@@ -10,11 +15,12 @@ AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
 API_AUDIENCE = os.getenv('AUTH0_API_AUDIENCE')
 ALGORITHMS = ['RS256']
 
-## AuthError Exception
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
+
 
 def get_token_auth_header():
     """
@@ -26,7 +32,7 @@ def get_token_auth_header():
     """
 
     if not hasattr(request, 'headers') or \
-        'Authorization' not in request.headers:
+            'Authorization' not in request.headers:
         raise AuthError("Missing auth header", 401)
 
     atoms = request.headers['Authorization'].split()
@@ -42,6 +48,7 @@ def get_token_auth_header():
         }, 401)
 
     return atoms[1]
+
 
 def check_permissions(permission, payload):
     """
@@ -69,6 +76,7 @@ def check_permissions(permission, payload):
 
     return True
 
+
 def verify_decode_jwt(token):
     """
     Verify token.
@@ -79,7 +87,7 @@ def verify_decode_jwt(token):
     """
 
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json',
-        context=ssl._create_unverified_context())
+                      context=ssl._create_unverified_context())
     jwks = json.loads(jsonurl.read())
     unverified_header = jwt.get_unverified_header(token)
     rsa_key = {}
@@ -125,8 +133,9 @@ def verify_decode_jwt(token):
                 'description': 'Unable to parse authentication token.'}, 400)
 
     raise AuthError({
-                'code': 'invalid_header',
+        'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'}, 400)
+
 
 def requires_auth(permission=''):
     """

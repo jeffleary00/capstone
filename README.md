@@ -24,9 +24,107 @@ Healths reported are as follows:
  - Mithril JS
 
 ## Technical
-- The REST API is a Flask application.
-- The WEB GUI is a small Mithril/JS app.
-- Authentication and RBAC provided by Auth0
+ - The REST API is a Flask application.
+ - The WEB GUI is a small Mithril/JS app.
+ - Authentication and RBAC provided by Auth0
+
+## Installation
+If you wish to fork your own copy of this project, and test from a local server,
+follow these instructions. Otherwise, skip to the **Testing** section below.
+
+### Clone from repository.
+```
+$> git clone https://github.com/jeffleary00/capstone.git
+$> cd capstone
+```
+
+### For testing, installation into a Python virtualenv is recommended.
+Create a new virtualenv named "venv", and activate it.
+```
+$> python3 -m venv venv
+$> source venv/bin/activate
+(venv)$>
+```
+
+### Install the projects python requirements
+```
+(venv)$> pip3 install -r ./requirements.txt
+```
+
+### Install the cs-mon module
+```
+(venv)$> pip3 install -e .
+```
+
+### Update configurations for your new environment.
+The following files and variables should be edited, to reflect your Auth0 settings.
+- setup.sh (AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
+- auth.py (AUTH0_DOMAIN, AUTH0_API_AUDIENCE)
+- static/js/src/auth.js (environment.domain: environment.client_id, environment.redirect_uri, environment.audience)
+
+### Starting the test server
+```
+(venv)$> python3 ./app.py
+* Serving Flask app "app" (lazy loading)
+* Environment: production
+    WARNING: This is a development server. Do not use it in a production deployment.
+    Use a production WSGI server instead.
+* Debug mode: off
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+
+## Testing
+### Test Users
+There are two users built for testing purposes:
+- manager@capstone-monitor.net (pw="Changeme001!")
+- engineer@capstone-monitor.net (pw="Changeme001!")
+
+### JWT Token for testing
+Log into the app gui with one of the test accounts, and click the Token button in the menu to view and copy the token.
+
+### Testing with curl on the command line
+```
+# temporarily store the copied token in ENV variable, to make curl commands easier.
+$> TOKEN="<TOKEN STRING COPIED FROM STEP ABOVE>"
+
+# Create an initial cluster
+$> curl -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -X POST -d '{"name": "test cluster", "notes": "this is a test"}' https://cs-monitor.herokuapp.com/api/v1.0/clusters
+
+*response*
+{"clusters":[{"health":[0,"ok"],"id":1,"name":"test cluster","notes":"this is a test","servers":[]}],"success":true}
+
+# Add server to cluster returned from the previous command
+$> curl -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -X POST -d '{"name": "server-1", "notes": "this is a test test server", "cluster_id": <cluster id number from last command>}' https://cs-monitor.herokuapp.com/api/v1.0/servers
+
+*response*
+{"servers":[{"health":[0,"ok"],"id":1,"name":"server-1","notes":"this is a test server","cluster_id":1}],"success":true}
+
+# Get list of clusters, and their child servers
+$> curl -H "Content-Type: application/json" -H "Authorization: Bearer $TOKEN" -X GET https://cs-monitor.herokuapp.com/api/v1.0/clusters
+
+*response*
+{"clusters":[{"health":[0,"ok"],"id":1,"name":"test cluster","notes":"this is a test","servers":[{"health":[0,"ok"],"id":1,"name":"server-1","notes":"this is a test server","cluster_id":1}]}],"success":true}
+```
+
+## Testing with Postman
+### Importing Postman Configs.
+There is a custom Postman Environment file for these tests, called *cs-mon-api.postman_environment.json*. Please import this environment file into Postman. This ensures that test variables can be stored correctly and tests will pass seamlessly.
+
+The Postman Collection for all API tests is found in the file *cs-mon-api.postman_collection.json* in this repository. Import this file into Postman.
+Then choose the "cs-mon-api" collection. Ensure that the collection is set to use the imported "CSmon Test Environment"
+
+### Update Authorization tokens for each role.
+Edit the Authorization settings for the "manager-role", "engineer-role", and "manager-cleanup" folders with their correct tokens.
+1. Log into web gui as an account with *Manager* permissions.
+ - Copy Token value from menu.
+ - Edit "manager-role" folder settings in Postman, and assign Bearer Token in the Authorization tab.
+ - Also, edit "manager-cleanup" folder settings in Postman, and assign Bearer Token in the Authorization tab.
+ - Logout of the gui application.
+2. Log into web gui as an account with *Engineer* permissions.
+ - Copy Token value from menu.
+ - Edit "engineer-role" folder settings in Postman, and assign Bearer Token in the Authorization tab.
+ - Logout of the gui application.
+3. Click postman "Runner" for the entire "cs-mon-api" folder. This will perform sequentially all tests in the *manager-role*, *engineer-role*, and *manager-cleanup* collections.
 
 ## Permissions
 - Role ENGINEER can perform GET and PATCH of cluster and server details.
@@ -50,18 +148,6 @@ Healths reported are as follows:
 ## Demo Notes
 Health states of the servers are randomly generated for demo purposes.
 Each time you query the info, you may get different health states.
-
-## Tests
-The Postman profile for all API tests is found in the file *cs-mon-api.postman_collection.json* in this repository.
-Also, there is a custom Postman Environment for these tests as well, called *cs-mon-api.postman_environment.json*. Please import this environment as well, so that test variables can be stored correctly and tests will pass seamlessly.
-
-### Test Users
-There are two users built for testing purposes:
-- manager@capstone-monitor.net (pw="Changeme001!")
-- engineer@capstone-monitor.net (pw="Changeme001!")
-
-These users can log into the application page, and fetch the JWT info to update the testing profiles in Postman with the latest Authorization/Bearer information.
-The "Token" button in the menu bar will display the logged-in users JWT token.
 
 ## Author
 J Leary (jeffleary00@gmail.com)

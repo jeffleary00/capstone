@@ -1,5 +1,11 @@
+"""
+Part of the Capstone-Monitor project for Udacity FSND final project.
+Basic utility functions, used in various places of the app.
+"""
+
 import random
 import datetime
+
 
 def random_health_state():
     """
@@ -18,6 +24,7 @@ def random_health_state():
     health = random.choices(population=choices, weights=weights, k=1)
     return health[0]
 
+
 def get_server_health(data):
     """
     Get a server objects health status.
@@ -30,17 +37,18 @@ def get_server_health(data):
 
     # validation
     required = ['id', 'health', 'updated']
-    if type(data) is not dict:
+    if not isinstance(data, dict):
         raise ValueError("Excpecting a dict.")
     for r in required:
         if r not in data:
             raise KeyError("Key %s required" % r)
 
-    # demo only. in the real world, this should get info from the actual device.
+    # demo only. in the real world, this should get info from the actual
+    # device.
     now = datetime.datetime.utcnow()
     stale_seconds = 60
     if 'updated' not in data or data['updated'] is None or \
-        (now - data['updated']).seconds > stale_seconds:
+            (now - data['updated']).seconds > stale_seconds:
         return random_health_state()
     else:
         return None

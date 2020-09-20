@@ -3,12 +3,13 @@ import json
 import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import (Column, Integer, String, Text, DateTime, Boolean,
-    ForeignKey, func)
+                        ForeignKey, func)
 from sqlalchemy.orm import relationship
 from utils import get_server_health
 
 database_url = os.getenv('DATABASE_URL', 'sqlite:///')
 db = SQLAlchemy()
+
 
 def setup_db(app, url=database_url):
     """Initialize SQLAlchemy database engine."""
@@ -18,6 +19,7 @@ def setup_db(app, url=database_url):
     db.app = app
     db.init_app(app)
     db.create_all()
+
 
 class Cluster(db.Model):
     """A Cluster is for storing a collection of servers. Like a datacenter."""
@@ -31,8 +33,8 @@ class Cluster(db.Model):
 
     # relationships
     servers = relationship('Server',
-        backref='cluster',
-        lazy=True, cascade='all,delete')
+                           backref='cluster',
+                           lazy=True, cascade='all,delete')
 
     def insert(self):
         db.session.add(self)
@@ -63,6 +65,7 @@ class Cluster(db.Model):
 
         return results
 
+
 class Server(db.Model):
     """Server Hardware Object"""
 
@@ -72,7 +75,7 @@ class Server(db.Model):
     name = Column(String(48), unique=True, nullable=False)
     notes = Column(Text, nullable=True)
     is_active = Column(Boolean, nullable=False, default=True)
-    health = Column(String(24), nullable=False, default=json.dumps([0,'ok']))
+    health = Column(String(24), nullable=False, default=json.dumps([0, 'ok']))
     updated = Column(DateTime)
     created = Column(DateTime, default=func.now())
 
